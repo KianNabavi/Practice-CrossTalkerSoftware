@@ -48,15 +48,7 @@ The normalization formula is as follows, for each compound of each species:
 
 The normalized concentration is computed as:
 
-$$
-\text{Normalized Concentration}
-=
-\frac{
-[\text{Compound}]_t - [\text{Control}]_t
-}{
-\sqrt{
-(\text{SD}_t \cdot [\text{Compound}]_t^{2})
-+
+$$\text{Normalized Concentration}=\frac{[\text{Compound}]_t - [\text{Control}]_t}{\sqrt{(\text{SD}_t \cdot [\text{Compound}]_t^{2})+
 (\text{Control SD}_t \cdot [\text{Control}]_t^{2})
 }
 }

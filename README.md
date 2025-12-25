@@ -52,14 +52,15 @@ $$
 \text{Normalized Concentration}
 =
 \frac{
-\text{[Compound]}_{t} - \text{[Control]}_{t}
+[\text{Compound}]_t - [\text{Control}]_t
 }{
 \sqrt{
-(\text{SD}_{t} \cdot \text{[Compound]}_{t}^{2})
+(\text{SD}_t \cdot [\text{Compound}]_t^{2})
 +
-(\text{Control SD}_{t} \cdot \text{[Control]}_{t}^{2})
+(\text{Control SD}_t \cdot [\text{Control}]_t^{2})
 }
 }
 $$
+
 
 Where $\text{[Compound]}_{t}$ is the concentration of the compound at time t, $\text{[Control]}_{t}$ is the concentration of the control of that compound at time t, $\text{SD}_{t}$ is the standard deviation of the compound's concentration at time t, and $\text{Control SD}_{t}$ is the standard deviation of the control at time t. 

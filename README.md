@@ -55,10 +55,32 @@ $$\text{Normalized Concentration}=\frac{[\text{Compound}]_t - [\text{Control}]_t
 $$
 
 
-Where [Compound]_t is the concentration of the compound at time t,  
-[Control]_t is the concentration of the control for that compound at time t,  
-SD_t is the standard deviation of the compound concentration at time t,  
-and Control SD_t is the standard deviation of the control concentration at time t.
+Where:
+
+$$
+[\text{Compound}]_t
+$$
+
+is the concentration of the compound at time \(t\),
+
+$$
+[\text{Control}]_t
+$$
+
+is the concentration of the control at time \(t\),
+
+$$
+\text{SD}_t
+$$
+
+is the standard deviation of the compound at time \(t\), and
+
+$$
+\text{Control SD}_t
+$$
+
+is the standard deviation of the control at time \(t\).
+
 
 
 

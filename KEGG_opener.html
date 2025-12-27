@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>KEGG File Reader and Displayer 1.1</title>
+
+        <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+        <script src="https://unpkg.com/layout-base/layout-base.js"></script>
+        <script src="https://unpkg.com/cose-base/cose-base.js"></script>
+        <script src="https://unpkg.com/cytoscape-layout-utilities/cytoscape-layout-utilities.js"></script>
+        <script src="https://unpkg.com/cytoscape-fcose/cytoscape-fcose.js"></script>
+
+
+
+
+        <style>
+            body {
+                font-family: 'Times New Roman', Times, serif;
+                background-color: #fafafa;
+            }
+
+            #container {
+                display:flex;
+            }
+
+            #cy {
+                flex: 1;
+            }
+
+            #controls {
+                width:200px;
+                padding:10px;
+                border-right:1px solid #ccc;
+            }
+
+            #cy{
+                width: 100%;
+                height: 95vh;
+                border: 1px solid gray;
+                border-radius: 10px;
+            }
+
+            .node-tooltip {
+                position: absolute;
+                background: white;
+                border: 1px solid #333;
+                padding: 4px 8px;
+                border-radius: 4px;
+                pointer-events: none;
+                display: none;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                z-index: 10000;
+            }
+
+            
+        </style>
+
+    </head>
+
+    <body>
+        <h1>KEGG Pathway Uploader and Viewer</h1>
+        <h3>Created: Friday October 17th, 2025</h3>
+        <h4>Last revised: November 4th, 2025</h>
+        <div id="container">
+            <div id="cy"></div>
+            <div id="controls">
+                Node size: <br>
+                <input id="nodeSizeSlider" type="range" min="75" max="300" value="85">
+                <br></br>
+                <label for="fileInput">Input KEGG Pathway</label>
+                <input type="file" id="fileInput" accept=".xml,.kxml" />
+                <br></br>
+                <label for="dataInput">Input Metabolomic Data</label>
+                <input type="file" id="dataInput" accept=".csv,.json"/>
+                <br></br>
+                <button id="visualizationButton">Visualization Module</button> <button id="exploreButton">Exploratory Module</button>
+                <br></br>
+                <label><input type="checkbox" id="toggleRelations" checked> Show relations</label>
+                <br></br>
+                <label><input type="checkbox" id="toggleReactions" checked> Show reactions</label>
+             </div>
+          </div>
+
+          <script>
+            let current_mode = null;
+let lastElements = null;
+
+let axisScaled = false;
+
+//let cy = null;
+
+document.getElementById("visualizationButton").addEventListener("click", () => {
+    current_mode = "visualize";
+    if (lastElements) simplifyCytoscape(lastElements);
+});
+
+document.getElementById("exploreButton").addEventListener("click", () =>{
+    current_mode = "explore";
+    if (lastElements) visualizeCytoscape(lastElements);
+});
+
+document.getElementById("fileInput").addEventListener("change", handleSelectedFiles);
+
+async function handleSelectedFiles(event) {
+    axisScaled = false;
+    const file = event.target.files[0]; //understands what the file is
+    const text = await file.text(); //reads the contents of the file as text
+    const elements = parseKeggXmlToCytoscape(text); //puts what we want in the file into "elements"
+    lastElements = elements;
+    if(current_mode == "explore") visualizeCytoscape(elements);
+    else if(current_mode == "visualize") simplifyCytoscape(elements);
+    console.log(current_mode);
+}
+
+document.getElementById("dataInput").addEventListener("change", handleDataUpload);
+
+document.getElementById("dataInput").addEventListener("change", handleDataUpload);
+
+async function handleDataUpload(event) {
+const file = event.target.files[0];
+if (!file) return;
+
+const text = await file.text();
+const lines = text.trim().split(/\r?\n/);
+const headers = lines[0].split(/,|\t/); // support commas or tabs
+
+// === STEP 1: Detect grouping and time structure ===
+const groupNames = [], condNames = [], timeNames = [];
+headers.slice(2).forEach(header => {
+const parts = header.split("_");
+if (parts.length >= 3) {
+groupNames.push(parts[0]);
+condNames.push(parts[1]);
+timeNames.push(parts[2]);
+}
+});
+const uniq = arr => [...new Set(arr)];
+const dataGroups = uniq(groupNames);
+const abData = uniq(condNames);
+const timeData = uniq(timeNames);
+
+// === STEP 2: Parse all compounds ===
+const structuredData = {};
+for (const g of dataGroups) {
+structuredData[g] = {};
+for (const cond of abData) {
+structuredData[g][cond] = { nodes: [], links: [] };
+
+for (let i = 1; i < lines.length; i++) {
+    const row = lines[i].split(/,|\t/);
+    const compound = row[0].trim();
+    const group = row[1].trim();
+    const node = { name: compound, gp: group };
+
+    // Add each time point's numeric value
+    for (const t of timeData) {
+        const colName = `${g}_${cond}_${t}`;
+        const idx = headers.indexOf(colName);
+        if (idx >= 0 && row[idx] !== "") {
+            node[t] = parseFloat(row[idx]);
+        }
+    }
+
+    // Compute average value across time points for visualization
+    const values = timeData.map(t => node[t]).filter(v => !isNaN(v));
+    node.avg = values.length ? values.reduce((a, b) => a + b, 0) / values.length : 0;
+
+    structuredData[g][cond].nodes.push(node);
+}
+}
+}
+
+console.log("Parsed structured data:", structuredData);
+
+// === STEP 3: Flatten data for your Cytoscape visualization ===
+const flattened = [];
+Object.values(structuredData).forEach(groupObj => {
+Object.values(groupObj).forEach(condObj => {
+condObj.nodes.forEach(node => {
+    flattened.push({
+        id: node.name,
+        type: "node",
+        value: node.avg
+    });
+});
+});
+});
+
+// === STEP 4: Send to your visualization function ===
+applyConcentrationAndFlux(flattened);
+}
+
+function applyConcentrationAndFlux(data) {
+if (!cy) {
+alert("No network loaded yet!");
+return;
+}
+
+const nodeData = data.filter(d => d.type === "node" && cy.$id(d.id).nonempty());
+const edgeData = data.filter(d => d.type === "edge");
+
+if (nodeData.length === 0 && edgeData.length === 0) {
+alert("No matching nodes or edges found in the uploaded file.");
+return;
+}
+
+// helper function for scaling
+const scale = (val, min, max, newMin, newMax) => {
+if (max === min) return (newMin + newMax) / 2;
+return newMin + ((val - min) / (max - min)) * (newMax - newMin);
+};
+
+// Compute min/max safely
+const concVals = nodeData.map(d => d.value);
+const fluxVals = edgeData.map(d => d.value);
+
+const concMin = concVals.length ? Math.min(...concVals) : 0;
+const concMax = concVals.length ? Math.max(...concVals) : 1;
+const fluxMin = fluxVals.length ? Math.min(...fluxVals) : 0;
+const fluxMax = fluxVals.length ? Math.max(...fluxVals) : 1;
+
+// Apply concentration (node size + color)
+nodeData.forEach(entry => {
+const node = cy.$id(entry.id);
+if (node.nonempty()) {
+const scaledSize = scale(entry.value, concMin, concMax, 40, 200);
+const colorValue = scale(entry.value, concMin, concMax, 0, 255);
+node.style({
+    width: scaledSize,
+    height: scaledSize,
+    'background-color': `rgb(${255 - colorValue}, ${colorValue}, 120)`
+});
+}
+});
+
+// Apply flux (edge thickness)
+cy.edges().forEach(edge => {
+const match = edgeData.find(d => edge.data("id")?.includes(d.id));
+if (match) {
+const scaledFlux = scale(match.value, fluxMin, fluxMax, 1, 15);
+edge.style("width", scaledFlux);
+}
+});
+
+cy.fit();
+}
+
+
+
+
+
+function parseKeggXmlToCytoscape(keggXmlString) { 
+    const parser = new DOMParser(); //defines the parser element that will go through the file
+    const xmlDoc = parser.parseFromString(keggXmlString, "text/xml"); //idk what this does
+
+    const entries = Array.from(xmlDoc.getElementsByTagName("entry"));
+    const relations = Array.from(xmlDoc.getElementsByTagName("relation"));
+    const reactions = Array.from(xmlDoc.getElementsByTagName("reaction"));
+
+    const elements = [];
+
+    const legendNodes = [
+        { data: { id: 'legend_compound', label: 'Compound', type: 'legend_compound' }, position: { x: 50, y: 50 } },
+        { data: { id: 'legend_enzyme', label: 'Enzyme', type: 'legend_enzyme' }, position: { x: 50, y: 120 } },
+        { data: { id: 'legend_gene', label: 'Gene', type: 'legend_gene' }, position: { x: 50, y: 190 } },
+        { data: { id: "legend_ortholog", label: "Ortholog", type: "legend_ortholog"}, position: {x: 50, y: 260}}
+    ];
+
+    // Add them to your elements array
+    elements.push(...legendNodes);
+
+    //this function converts each "entry" from KEGG into "nodes" that cytoscape can recognize and plot. this function can be customized for other file types as well, allowing the user to turn any file of this sort into a metabolic map. 
+    entries.forEach(entry => {
+        const g = entry.getElementsByTagName("graphics")[0];
+        elements.push({
+            data: {
+                id: entry.getAttribute('id'),
+                name: entry.getAttribute("name"),
+                type: entry.getAttribute("type"),
+                label: g?.getAttribute("name") || entry.getAttribute("name"),
+                x: g?.getAttribute("x") ? parseFloat(g.getAttribute("x")) : null,
+                y: g?.getAttribute('y') ? parseFloat(g.getAttribute('y')) : null
+            },
+            position: g ? { x: parseFloat(g.getAttribute("x")), y: parseFloat(g.getAttribute("y")) } : undefined
+        });
+    });
+
+
+    //this function turns the "relations" from KEGG into edges (arrows) that cytoscape can recognize and plot. 
+    relations.forEach(rel => {
+
+        const edgeId = `${rel.getAttribute('entry1')}-${rel.getAttribute('entry2')}` //what is this? what does it even do
+        elements.push({
+            data: {
+                id: edgeId,
+                source: rel.getAttribute("entry1"),
+                target: rel.getAttribute("entry2"),
+                relation_type: rel.getAttribute("type")
+            }
+        });
+    });
+
+    reactions.forEach((Rxn, idx) => {
+        const substrates = Array.from(Rxn.getElementsByTagName("substrate")).map(s => s.getAttribute("id"));
+        const products = Array.from(Rxn.getElementsByTagName("product")).map(p => p.getAttribute("id"));
+
+        substrates.forEach(sub => {
+        products.forEach(prod => {
+            const rxnEdgeId = `rxn${idx}-${sub}-${prod}`;
+            elements.push({
+                data: {
+                    id: rxnEdgeId,
+                    source: sub,
+                    target: prod,
+                    reaction_type: Rxn.getAttribute("type")
+                    }
+                });
+            });
+        });
+    });
+
+    return elements;
+}
+
+
+//create the cytoscape visualizations
+function visualizeCytoscape(elements){
+    console.log("complex function is running");
+    const cy = cytoscape({
+        container: document.getElementById("cy"),
+        elements: elements,
+        layout: {name: "preset"},
+        style: [
+            {
+                selector: "node",
+                style: {
+                    "label": "data(label)",
+                    "text-valign": "center",
+                    "text-halign": "center",
+                    "color": "#000",
+                    "background-color": function(ele){
+                        const type = ele.data("type");
+                        if (type === "compound") return "#e2391d";
+                        if (type == "legend_compound") return "#e2391d";
+                        if (type === "gene") return "#2f9028";
+                        if (type === "legend_gene") return "#2f9028";
+                        if (type === "ortholog") return "#872ad5";
+                        if (type === "legend_ortholog") return "#872ad5";
+                        if (type === "enzyme") return "#f6ebcc";
+                        if (type === "legend_enzyme") return "#f6ebcc";
+                        return "#f6ebaa";
+                    },
+                    "width": 85,
+                    "height": 85,
+                    "font-size": 20, // hidden by default
+                    "border-color": "#555",
+                    "border-width": 3,
+                    "text-background-color": "#e3f2b9",
+                    "text-background-opacity": 1,
+                    "text-background-shape": "roundrectangle",
+                    "text-background-padding": "4px",
+                    "z-index-compare": "manual",
+                    "z-index": 9999
+                }
+            },
+            {
+                selector: "edge",
+                style: {
+                    "width": 5,
+                    "line-color": "#020202",
+                    "target-arrow-shape": "triangle",
+                    "target-arrow-solor": "#020202",
+                    "curve-style": "segments"
+                }
+            }
+        ]
+});
+
+const slider = document.getElementById("nodeSizeSlider");
+
+slider.addEventListener("input", e => {
+const v = parseInt(e.target.value);
+
+cy.nodes('[legend != "true"]').style({
+    'width': v,
+    'height': v
+});
+});
+
+cy.fit();
+
+if (!axisScaled){cy.nodes().forEach(node => {
+    const pos = node.position();
+    node.position({
+        x: pos.x * 3,
+        y: pos.y * 3
+        });
+    });
+    axisScaled = true;
+}
+
+const tooltip = document.createElement('div');
+tooltip.style.position = 'absolute';
+tooltip.style.background = 'white';
+tooltip.style.border = '1px solid #333';
+tooltip.style.padding = '3px 6px';
+tooltip.style.borderRadius = '4px';
+tooltip.style.pointerEvents = 'none';
+tooltip.style.display = 'none';
+document.body.appendChild(tooltip);
+
+cy.nodes().on('mouseover', function(evt){
+    const node = evt.target;
+    tooltip.innerText = node.data('label');
+    tooltip.style.display = 'block';
+}).on('mousemove', function(evt){
+    tooltip.style.left = (evt.originalEvent.pageX + 10) + 'px';
+    tooltip.style.top = (evt.originalEvent.pageY + 10) + 'px';
+}).on('mouseout', function(){
+    tooltip.style.display = 'none';
+});
+
+
+
+document.getElementById("toggleRelations").addEventListener("change", function(e) {
+if (e.target.checked){
+cy.edges('[relation_type]').style('display', 'element');
+} else {
+cy.edges('[relation_type]').style('display', 'none');
+}
+});
+
+document.getElementById("toggleReactions").addEventListener("change", function(e) {
+if (e.target.checked){
+cy.edges('[reaction_type]').style('display', 'element');
+} else {
+cy.edges('[reaction_type]').style('display', 'none');
+}
+});
+}
+
+
+
+
+
+
+
+
+
+function simplifyCytoscape(elements){
+    console.log("simple function is running");
+    const cy = cytoscape({
+        container: document.getElementById("cy"),
+        elements: elements,
+        layout: {name: "preset"},
+        style: [
+            {
+                selector: "node",
+                style: {
+                    "label": "data(label)",
+                    "text-valign": "center",
+                    "text-halign": "center",
+                    "color": "#000",
+                    "background-color": function(ele){
+                        const type = ele.data("type");
+                        if (type === "compound") return "#e2391d";
+                        if (type === "gene") return "#2f9028";
+                        if (type === "ortholog") return "#872ad5";
+                        if (type === "enzyme") return "#f6ebaa";
+                        return "#f6ebaa";
+                    },
+                    "width": 80,
+                    "height": 80,
+                    "font-size": 20, // hidden by default
+                    "border-color": "#555",
+                    "border-width": 3,
+                    "text-background-color": "#e3f2b9",
+                    "text-background-opacity": 1,
+                    "text-background-shape": "roundrectangle",
+                    "text-background-padding": "4px",
+                    "z-index-compare": "manual",
+                    "z-index": 9999
+                }
+            },
+            {
+                selector: "edge",
+                style: {
+                    "width": 5,
+                    "line-color": "#020202",
+                    "target-arrow-shape": "triangle",
+                    "target-arrow-solor": "#020202",
+                    "curve-style": "segment"
+                }
+            }
+        ]
+});
+
+    cy.fit();
+
+    if (!axisScaled){cy.nodes().forEach(node => {
+    const pos = node.position();
+    node.position({
+        x: pos.x * 3,
+        y: pos.y * 3
+        });
+    });
+    axisScaled = true;
+    }
+    cy.nodes().forEach(node => {
+        if (node.connectedEdges().length === 0) {
+            node.remove();
+        }
+    });
+
+    const tooltip = document.createElement('div');
+    tooltip.style.position = 'absolute';
+    tooltip.style.background = 'white';
+    tooltip.style.border = '1px solid #333';
+    tooltip.style.padding = '3px 6px';
+    tooltip.style.borderRadius = '4px';
+    tooltip.style.pointerEvents = 'none';
+    tooltip.style.display = 'none';
+    document.body.appendChild(tooltip);
+
+    cy.nodes().on('mouseover', function(evt){
+        const node = evt.target;
+        tooltip.innerText = node.data('label');
+        tooltip.style.display = 'block';
+    }).on('mousemove', function(evt){
+        tooltip.style.left = (evt.originalEvent.pageX + 10) + 'px';
+        tooltip.style.top = (evt.originalEvent.pageY + 10) + 'px';
+    }).on('mouseout', function(){
+        tooltip.style.display = 'none';
+    }).on("click", function(evt){
+        tooltip.innerText = node.data("name");
+        tooltip.style.display = "block";
+    });
+
+    const slider = document.getElementById("nodeSizeSlider");
+
+    slider.addEventListener("input", e => {
+    const v = parseInt(e.target.value);
+
+    cy.nodes('[legend != "true"]').style({
+        'width': v,
+        'height': v
+    });
+    });
+
+    document.getElementById("toggleRelations").addEventListener("change", function(e) {
+        if (e.target.checked){
+            cy.edges('[relation_type]').style('display', 'element');
+        } else {
+            cy.edges('[relation_type]').style('display', 'none');
+        }
+    });
+
+    document.getElementById("toggleReactions").addEventListener("change", function(e) {
+        if (e.target.checked){
+            cy.edges('[reaction_type]').style('display', 'element');
+        } else {
+            cy.edges('[reaction_type]').style('display', 'none');
+        }
+    });
+
+}
+
+
+
+
+        </script>
+        </body>
+    
+        </html>

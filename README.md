@@ -56,3 +56,20 @@ $$
 
 
 Where $\text{[Compound]}_{t}$ is the concentration of the compound at time t, $\text{[Control]}_{t}$ is the concentration of the control of that compound at time t, $\text{SD}_{t}$ is the standard deviation of the compound's concentration at time t, and $\text{Control SD}_{t}$ is the standard deviation of the control at time t. 
+
+
+## **Visual Customization**
+The software is built with a lot of personalization tools for the resulting visual. This includes:
+- **Margin**: This is the width of each recatngle. When deciding on a margin, it is helpful to keep the length of the name of your chosen compounds in mind. The unit for this measurment is in pixels.
+- **Center Size**: This is the size of the square in the middle of the visual where the community wells are located. The unit for this measurement is in pixels. 
+- **Padding**: This is a measurement for the extra padding on the end of each scale where the compounds are located. This unit for this measurement is a **percentage**, where 100% represents one full unit of length between the compounds on the scale.
+- **Names visible in well**: This is a button to toggle on and off the names appearing in the community wells in the center of the visual. By default, this option is turned off for aesthetics but can be turned on.
+- **Show species in rectangles**: This is a button to toggle on and off the names of species appearing in each of the rectangles. By default, this option is turned off for aesthetics but can be turned on for clarity and a clearer visual. It is recommended that this option be turned on.
+
+### **Colour Customization**
+The tool comes with very flexible solour customizations. Colours can be changed for:
+- Each species rectangle: this is the background colour of each species rectangle
+- Tick fill: this is the colour for each of the ticks/nodes. When a circle is generated for a compound according to its concentration, this circle is called a tick or a node. The colour for these ticks can be customized
+- Arrow colours: once the tool has calculated flux for each compound, it also determines whether the value represents influx or outflux. The user can then customize what colour each arrow is
+
+Colour customization can be done through a colour wheel, or the user can input the colour they want through hexadecmial code (e.g. #4e9eef), RGB code (e.g. rgb(255, 255, 255)), and hsl(214, 100%, 50%))

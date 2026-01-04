@@ -4,13 +4,13 @@
 
 Welcome to the Cross Talker Visualization Software tool. This is a tool created to visualize the metabolomic interactions of different species using the Cross Talker plates. This is a tutorial that will be covering the different capabilities, options, and customizations of the software, as well as providing a tutorial for first-time use. 
 
-This software has been created by **Kian**, from the [University of Western Ontario](https://www.schulich.uwo.ca/index.html).
+This software has been created by **Kian Nabavi Larijani**, from the [University of Western Ontario](https://www.schulich.uwo.ca/index.html).
 
 
 
 ## Main Specifications and Capabilities
 
-The software is to be used as an analysis and visualization tool after the Cross Talker plates have been used (and sampled). After which, the raw data from concentrations of different metabolites is to be uploaded into the tool to visualize. The software has various capabilities when it comes to visualizing; almost all elements can be resized, colours and backgrounds can be changed, and descriptive text can be added and removed at will. It is however very important that raw data is first transformed into a <ins>**formatted CSV file**</ins> that can be properly understood by the software. For the template and for example datafiles, look at our [Github page](https://www.schulich.uwo.ca/bmsc/current-students/admission-progression/to-medical-sciences-2.html).
+The software is to be used as an analysis and visualization tool after the Cross Talker plates have been used (and sampled). After which, the raw data from concentrations of different metabolites is to be uploaded into the tool to visualize. The software has various capabilities when it comes to visualizing; almost all elements can be resized, colours and backgrounds can be changed, and descriptive text can be added and removed at will. It is however very important that raw data is first transformed into a <ins>**formatted CSV file**</ins> that can be properly understood by the software. For the template and for example datafiles, look at our [Github page](https://github.com/Bishop-Research-Group).
 
 
 ## What is a Cross Talker?
@@ -22,7 +22,7 @@ The Cross Talker is a plate created to observe metabolomic interactions between 
 The specific metabolimic data that is fed into the tool has a very clear format with each row represents a compound in each species, as well as one row for the community well and an extra row for control. For each of these rows, the following data is collected:
 - Compound name
 - Species and/or type (Community + Control)
-- [Diffusion coefficient](https://www.schulich.uwo.ca/bmsc/current-students/admission-progression/to-medical-sciences-2.html)
+- [Diffusion coefficient]()
 - Then, for each time point that data was collected, there will be one column for:
     - Time point (in hours)
     - Concentration 

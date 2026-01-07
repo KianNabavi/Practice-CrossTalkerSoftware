@@ -53,6 +53,8 @@ let normalizedConcValues = [];
 
 let thicknessScale;
 
+let legendThicknessScale;
+
 
 
 
@@ -415,7 +417,7 @@ function drawAxes() {
             .constant(1);
 
 
-        const legendThicknessScale = d3.scaleSymlog()
+        legendThicknessScale = d3.scaleSymlog()
             .domain([minFluxAbs, maxFluxAbs])
             .range([minThickness, maxThickness])
             .constant(1);
@@ -561,7 +563,6 @@ function drawAxes() {
                 d3.max(fluxValues),
                 // d3.min(concValues),
                 // d3.max(concValues),
-                legendThicknessScale,
                 tickSizeScale
             );
         });
@@ -1267,7 +1268,7 @@ function calculateFlux(time) {
 
 
 
-function drawLegend(minFlux, maxFlux, minConc, maxConc, scaleThickness, tickSizeScale) {
+function drawLegend(minFlux, maxFlux, minConc, maxConc, , tickSizeScale) {
 
     // remove old legend
     svg.selectAll(".legend-group").remove();
@@ -1311,7 +1312,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc, scaleThickness, tickSize
         .attr("x2", 80)
         .attr("y2", 25)
         .attr("stroke", "black")
-        .attr("stroke-width", scaleThickness(minFlux))
+        .attr("stroke-width", legendThicknessScale(minFlux))
         .attr("marker-end", "url(#arrow)");
 
     legend.append("text")
@@ -1326,7 +1327,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc, scaleThickness, tickSize
         .attr("x2", 80)
         .attr("y2", 55)
         .attr("stroke", "black")
-        .attr("stroke-width", scaleThickness(maxFlux))
+        .attr("stroke-width", legendThicknessScale(maxFlux))
         .attr("marker-end", "url(#arrow)");
 
     legend.append("text")

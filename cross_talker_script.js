@@ -390,6 +390,11 @@ function drawAxes() {
         //compute z-scores for thickness
         const fluxValues = fluxData.map(d => d.flux);
 
+        fluxData.forEach(d => {
+            d.fluxAbs = Math.abs(d.flux);
+        });
+
+
 
         // get min and max of raw flux values
         const fluxExtent = d3.extent(fluxValues);
@@ -397,9 +402,13 @@ function drawAxes() {
 
         const allFluxMagnitudes = fluxData.map(d => Math.abs(d.flux));
 
+        const fluxAbsValues = fluxData.map(d => d.fluxAbs);
+        const minFluxAbs = d3.min(fluxAbsValues);
+        const maxFluxAbs = d3.max(fluxAbsValues);
 
-        const minFluxAbs = d3.min(allFluxMagnitudes);
-        const maxFluxAbs = d3.max(allFluxMagnitudes);
+
+        // const minFluxAbs = d3.min(allFluxMagnitudes);
+        // const maxFluxAbs = d3.max(allFluxMagnitudes);
 
         const minArrowWidth = 1;
         const maxArrowWidth = 8;
@@ -424,7 +433,7 @@ function drawAxes() {
 
         // assign thickness to each flux object
         fluxData.forEach(d => {
-            d.thickness = legendThicknessScale(Math.abs(d.flux));
+            d.thickness = legendThicknessScale(d.fluxAbs);
             // const conc = tickSizeArray.find(t => t.metabolite === d.metabolite).concentration;
             // const tickSize = tickSizeScale(conc);
             // const halfTick = tickSize / 2;
@@ -1311,7 +1320,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc) {
         .attr("x2", 80)
         .attr("y2", 25)
         .attr("stroke", "black")
-        .attr("stroke-width", legendThicknessScale(minFlux))
+        .attr("stroke-width", legendThicknessScale(minFluxAbs))
         .attr("marker-end", "url(#arrow)");
 
     legend.append("text")
@@ -1326,7 +1335,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc) {
         .attr("x2", 80)
         .attr("y2", 55)
         .attr("stroke", "black")
-        .attr("stroke-width", legendThicknessScale(maxFlux))
+        .attr("stroke-width", legendThicknessScale(maxFluxAbs))
         .attr("marker-end", "url(#arrow)");
 
     legend.append("text")

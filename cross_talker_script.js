@@ -1346,7 +1346,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc) {
     legend.append("text")
         .attr("x", 20)
         .attr("y", 15)
-        .text("Normalized Flux → thickness")
+        .text("Normalized Flux → Arrow Thickness")
         .attr("font-weight", "bold")
         .attr("font-size", 12);
 
@@ -1355,7 +1355,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc) {
     legend.append("text")
         .attr("x", 20)
         .attr("y", 85)
-        .text("Conc → node size")
+        .text("Concentration → Node Size")
         .attr("font-weight", "bold")
         .attr("font-size", 12);
 

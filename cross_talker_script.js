@@ -563,7 +563,6 @@ function drawAxes() {
                 d3.max(fluxValues),
                 // d3.min(concValues),
                 // d3.max(concValues),
-                tickSizeScale
             );
         });
 
@@ -1268,7 +1267,7 @@ function calculateFlux(time) {
 
 
 
-function drawLegend(minFlux, maxFlux, minConc, maxConc, tickSizeScale) {
+function drawLegend(minFlux, maxFlux, minConc, maxConc) {
 
     // remove old legend
     svg.selectAll(".legend-group").remove();

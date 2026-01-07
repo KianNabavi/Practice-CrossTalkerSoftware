@@ -556,13 +556,13 @@ function drawAxes() {
 
 
             const fluxValues = fluxData.map(d => d.flux);
-            //const concValues = tickSizeArray.map(d => d.concentration);
+            const concValues = tickSizeArray.map(d => d.concentration);
 
             drawLegend (
                 d3.min(fluxValues),
                 d3.max(fluxValues),
-                // d3.min(concValues),
-                // d3.max(concValues),
+                d3.min(concValues),
+                d3.max(concValues),
             );
         });
 

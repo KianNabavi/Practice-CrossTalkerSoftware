@@ -424,7 +424,7 @@ function drawAxes() {
 
         // assign thickness to each flux object
         fluxData.forEach(d => {
-            d.thickness = thicknessScale(Math.abs(d.flux));
+            d.thickness = legendThicknessScale(Math.abs(d.flux));
             // const conc = tickSizeArray.find(t => t.metabolite === d.metabolite).concentration;
             // const tickSize = tickSizeScale(conc);
             // const halfTick = tickSize / 2;

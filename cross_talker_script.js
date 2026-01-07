@@ -1307,8 +1307,8 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc) {
         .attr("height", legendHeight)
         .attr("fill", "white")
         .attr("stroke", "black")
-        .attr("rx", 4)
-        .attr("ry", 4)
+        .attr("rx", 2)
+        .attr("ry", 2)
         .attr("opacity", 0.9);
 
     // ========== ARROW THICKNESS ============= //
@@ -1346,7 +1346,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc) {
     legend.append("text")
         .attr("x", 20)
         .attr("y", 15)
-        .text("Normalized Flux → Arrow Thickness")
+        .text("Normalized Flux → Thickness")
         .attr("font-weight", "bold")
         .attr("font-size", 12);
 

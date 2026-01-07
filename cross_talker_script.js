@@ -1268,7 +1268,7 @@ function calculateFlux(time) {
 
 
 
-function drawLegend(minFlux, maxFlux, minConc, maxConc, , tickSizeScale) {
+function drawLegend(minFlux, maxFlux, minConc, maxConc, tickSizeScale) {
 
     // remove old legend
     svg.selectAll(".legend-group").remove();

@@ -51,7 +51,7 @@ let concMode = "raw";
 
 let normalizedConcValues = [];
 
-
+let thicknessScale;
 
 
 
@@ -409,7 +409,7 @@ function drawAxes() {
 
 
         // create a linear scale from raw flux → thickness
-        const thicknessScale = d3.scaleSymlog()
+        thicknessScale = d3.scaleSymlog()
             .domain(fluxExtent)
             .range([minThickness, maxThickness])
             .constant(1);

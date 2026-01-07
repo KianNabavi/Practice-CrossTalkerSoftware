@@ -1267,7 +1267,7 @@ function calculateFlux(time) {
 
 
 
-function drawLegend(minFlux, maxFlux, minConc, maxConc, thicknessScale, tickSizeScale) {
+function drawLegend(minFlux, maxFlux, minConc, maxConc, scaleThickness, tickSizeScale) {
 
     // remove old legend
     svg.selectAll(".legend-group").remove();
@@ -1311,7 +1311,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc, thicknessScale, tickSize
         .attr("x2", 80)
         .attr("y2", 25)
         .attr("stroke", "black")
-        .attr("stroke-width", thicknessScale(minFlux))
+        .attr("stroke-width", scaleThickness(minFlux))
         .attr("marker-end", "url(#arrow)");
 
     legend.append("text")
@@ -1326,7 +1326,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc, thicknessScale, tickSize
         .attr("x2", 80)
         .attr("y2", 55)
         .attr("stroke", "black")
-        .attr("stroke-width", thicknessScale(maxFlux))
+        .attr("stroke-width", scaleThickness(maxFlux))
         .attr("marker-end", "url(#arrow)");
 
     legend.append("text")

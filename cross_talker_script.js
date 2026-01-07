@@ -556,14 +556,14 @@ function drawAxes() {
             const fluxValues = fluxData.map(d => d.flux);
             //const concValues = tickSizeArray.map(d => d.concentration);
 
-            // drawLegend(
-            //     d3.min(fluxValues),
-            //     d3.max(fluxValues),
-            //     // d3.min(concValues),
-            //     // d3.max(concValues),
-            //     legendThicknessScale,
-            //     tickSizeScale
-            // );
+            drawLegend(
+                d3.min(fluxValues),
+                d3.max(fluxValues),
+                // d3.min(concValues),
+                // d3.max(concValues),
+                legendThicknessScale,
+                tickSizeScale
+            );
         });
 
 
@@ -1267,113 +1267,113 @@ function calculateFlux(time) {
 
 
 
-// function drawLegend(minFlux, maxFlux, minConc, maxConc, thicknessScale, tickSizeScale) {
+function drawLegend(minFlux, maxFlux, minConc, maxConc, thicknessScale, tickSizeScale) {
 
-//     // remove old legend
-//     svg.selectAll(".legend-group").remove();
+    // remove old legend
+    svg.selectAll(".legend-group").remove();
 
-//     const legendWidth = 200;
-//     const legendHeight = 150;
+    const legendWidth = 200;
+    const legendHeight = 150;
 
-//     const legendX = 40;   // bottom-left fixed location
-//     const legendY = height - 200;
+    const legendX = 40;   // bottom-left fixed location
+    const legendY = height - 200;
 
-//     // Create a draggable group
-//     const legend = svg.append("g")
-//         .attr("class", "legend-group")
-//         .attr("transform", `translate(${legendX},${legendY})`)
-//         .call(
-//             d3.drag()
-//                 .on("drag", function (event) {
-//                     d3.select(this).attr(
-//                         "transform",
-//                         `translate(${event.x},${event.y})`
-//                     );
-//                 })
-//         );
+    // Create a draggable group
+    const legend = svg.append("g")
+        .attr("class", "legend-group")
+        .attr("transform", `translate(${legendX},${legendY})`)
+        .call(
+            d3.drag()
+                .on("drag", function (event) {
+                    d3.select(this).attr(
+                        "transform",
+                        `translate(${event.x},${event.y})`
+                    );
+                })
+        );
 
-//     // Background box
-//     legend.append("rect")
-//         .attr("width", legendWidth)
-//         .attr("height", legendHeight)
-//         .attr("fill", "white")
-//         .attr("stroke", "black")
-//         .attr("rx", 4)
-//         .attr("ry", 4)
-//         .attr("opacity", 0.9);
+    // Background box
+    legend.append("rect")
+        .attr("width", legendWidth)
+        .attr("height", legendHeight)
+        .attr("fill", "white")
+        .attr("stroke", "black")
+        .attr("rx", 4)
+        .attr("ry", 4)
+        .attr("opacity", 0.9);
 
-//     // ========== ARROW THICKNESS ============= //
+    // ========== ARROW THICKNESS ============= //
 
-//     // thinnest
-//     legend.append("line")
-//         .attr("x1", 20)
-//         .attr("y1", 25)
-//         .attr("x2", 80)
-//         .attr("y2", 25)
-//         .attr("stroke", "black")
-//         .attr("stroke-width", thicknessScale(minFlux))
-//         .attr("marker-end", "url(#arrow)");
+    // thinnest
+    legend.append("line")
+        .attr("x1", 20)
+        .attr("y1", 25)
+        .attr("x2", 80)
+        .attr("y2", 25)
+        .attr("stroke", "black")
+        .attr("stroke-width", thicknessScale(minFlux))
+        .attr("marker-end", "url(#arrow)");
 
-//     legend.append("text")
-//         .attr("x", 90)
-//         .attr("y", 30)
-//         .text(minFlux.toPrecision(3));
+    legend.append("text")
+        .attr("x", 90)
+        .attr("y", 30)
+        .text(minFlux.toPrecision(3));
 
 //     // thickest
-//     legend.append("line")
-//         .attr("x1", 20)
-//         .attr("y1", 55)
-//         .attr("x2", 80)
-//         .attr("y2", 55)
-//         .attr("stroke", "black")
-//         .attr("stroke-width", thicknessScale(maxFlux))
-//         .attr("marker-end", "url(#arrow)");
+    legend.append("line")
+        .attr("x1", 20)
+        .attr("y1", 55)
+        .attr("x2", 80)
+        .attr("y2", 55)
+        .attr("stroke", "black")
+        .attr("stroke-width", thicknessScale(maxFlux))
+        .attr("marker-end", "url(#arrow)");
 
-//     legend.append("text")
-//         .attr("x", 90)
-//         .attr("y", 60)
-//         .text(maxFlux.toPrecision(3));
+    legend.append("text")
+        .attr("x", 90)
+        .attr("y", 60)
+        .text(maxFlux.toPrecision(3));
 
-//     legend.append("text")
-//         .attr("x", 20)
-//         .attr("y", 15)
-//         .text("Normalized Flux → thickness")
-//         .attr("font-weight", "bold")
-//         .attr("font-size", 12);
+    legend.append("text")
+        .attr("x", 20)
+        .attr("y", 15)
+        .text("Normalized Flux → thickness")
+        .attr("font-weight", "bold")
+        .attr("font-size", 12);
 
 //     // ========== NODE SIZE ============= //
 
-//     legend.append("text")
-//         .attr("x", 20)
-//         .attr("y", 85)
-//         .text("Conc → node size")
-//         .attr("font-weight", "bold")
-//         .attr("font-size", 12);
+    legend.append("text")
+        .attr("x", 20)
+        .attr("y", 85)
+        .text("Conc → node size")
+        .attr("font-weight", "bold")
+        .attr("font-size", 12);
 
 //     // smallest
-//     legend.append("circle")
-//         .attr("cx", 35)
-//         .attr("cy", 110)
-//         .attr("r", tickSizeScale(minConc))
-//         .attr("fill", "gray");
+    legend.append("circle")
+        .attr("cx", 35)
+        .attr("cy", 110)
+        .attr("r", tickSizeScale(minConc))
+        .attr("fill", "gray");
 
-//     legend.append("text")
-//         .attr("x", 50)
-//         .attr("y", 115)
-//         .text(minConc.toPrecision(3));
+    legend.append("text")
+        .attr("x", 50)
+        .attr("y", 115)
+        .text(minConc.toPrecision(3));
 
 //     // largest
-//     legend.append("circle")
-//         .attr("cx", 150)
-//         .attr("cy", 110)
-//         .attr("r", tickSizeScale(maxConc))
-//         .attr("fill", "gray");
+    legend.append("circle")
+        .attr("cx", 150)
+        .attr("cy", 110)
+        .attr("r", tickSizeScale(maxConc))
+        .attr("fill", "gray");
 
-//     legend.append("text")
-//         .attr("x", 140)
-//         .attr("y", 115)
-//         .text(maxConc.toPrecision(3));
-// }
+    legend.append("text")
+        .attr("x", 140)
+        .attr("y", 115)
+        .text(maxConc.toPrecision(3));
+}
 
 
 

@@ -568,8 +568,8 @@ function drawAxes() {
             const concValues = tickSizeArray.map(d => d.concentration);
 
             drawLegend (
-                d3.min(fluxValues),
-                d3.max(fluxValues),
+                minFluxAbs,
+                maxFluxAbs,
                 d3.min(concValues),
                 d3.max(concValues),
             );
@@ -1320,7 +1320,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc) {
         .attr("x2", 80)
         .attr("y2", 25)
         .attr("stroke", "black")
-        .attr("stroke-width", legendThicknessScale(minFluxAbs))
+        .attr("stroke-width", legendThicknessScale(minFlux))
         .attr("marker-end", "url(#arrow)");
 
     legend.append("text")
@@ -1335,7 +1335,7 @@ function drawLegend(minFlux, maxFlux, minConc, maxConc) {
         .attr("x2", 80)
         .attr("y2", 55)
         .attr("stroke", "black")
-        .attr("stroke-width", legendThicknessScale(maxFluxAbs))
+        .attr("stroke-width", legendThicknessScale(maxFlux))
         .attr("marker-end", "url(#arrow)");
 
     legend.append("text")

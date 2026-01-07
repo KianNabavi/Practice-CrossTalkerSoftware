@@ -402,10 +402,10 @@ function drawAxes() {
         const minArrowWidth = 1;
         const maxArrowWidth = 8;
 
-        thicknessScale = d3.scaleSymlog()
-            .domain([minFluxAbs, maxFluxAbs])
-            .range([minArrowWidth, maxArrowWidth])
-            .constant(1);
+        // thicknessScale = d3.scaleSymlog()
+        //     .domain([minFluxAbs, maxFluxAbs])
+        //     .range([minArrowWidth, maxArrowWidth])
+        //     .constant(1);
 
 
         // create a linear scale from raw flux → thickness

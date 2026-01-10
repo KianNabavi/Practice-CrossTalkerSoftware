@@ -38,3 +38,53 @@ body {
 .glass-btn:active {
   transform: scale(0.97);
 }
+
+/* --- Container for both icons --- */
+.mito-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 6px;
+    position: relative;
+}
+
+/* --- Animation: float + rotate + glow --- */
+@keyframes mitoFloat {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+    }
+
+    25% {
+        transform: translateY(-4px) rotate(3deg);
+        filter: drop-shadow(0 0 8px rgba(255, 180, 80, 0.45));
+    }
+
+    50% {
+        transform: translateY(0px) rotate(0deg);
+        filter: drop-shadow(0 0 10px rgba(255, 180, 80, 0.55));
+    }
+
+    75% {
+        transform: translateY(3px) rotate(-3deg);
+        filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.4));
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+    }
+}
+
+.mito-animated {
+    animation: mitoFloat 4.5s ease-in-out infinite;
+    transform-origin: center center;
+}
+
+/* Optional shimmer overlay (super subtle) */
+.mito-icon::after {
+    content: "";
+    position: absolute;
+    background: radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.8), transparent 20%);
+}

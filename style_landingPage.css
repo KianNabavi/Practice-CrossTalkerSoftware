@@ -1,5 +1,9 @@
 header {
   background: #684ab5;
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 body {

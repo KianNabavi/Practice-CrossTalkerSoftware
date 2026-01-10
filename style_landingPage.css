@@ -77,6 +77,12 @@ body {
     }
 }
 
+.mito-icon {
+  width: 8px;
+  height: 8px;
+  opacity: 0.7;
+}
+
 .mito-animated {
     animation: mitoFloat 4.5s ease-in-out infinite;
     transform-origin: center center;

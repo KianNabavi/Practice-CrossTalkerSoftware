@@ -964,9 +964,9 @@ console.log("Before:", metabolites.map(r => r[4]));
 
             
             if (!minValues[compound]) {
-        minValues[compound] = {};
+        minValues[compound] = {row};
     }
-            minValues[compound][col] = minValue;
+            
 
     for (let col = FIRST_CONC_COL; col < csvHeaders.length; col += COL_STEP) {
         const val = parseFloat(row[col]);

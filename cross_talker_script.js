@@ -966,22 +966,19 @@ console.log("Before:", metabolites.map(r => r[4]));
             if (!minValues[compound]) {
         minValues[compound] = {};
     }
+            minValues[compound][col] = minValue;
 
     for (let col = FIRST_CONC_COL; col < csvHeaders.length; col += COL_STEP) {
         const val = parseFloat(row[col]);
+        const minVal = minValues[compound][col];
 
-        if (!isMissing(val)) {
-            if (
-                minValues[compound][col] === undefined ||
-                val < minValues[compound][col]
-            ) {
-                minValues[compound][col] = val;
-            }
+        if (isMissing(val)) {
+            row[col] = 0.5 * minValues[compound];
         }
     }
 
 
-console.log("Before:", metabolites.map(r => r[4]));
+console.log("After:", metabolites.map(r => r[4]));
 
             
             

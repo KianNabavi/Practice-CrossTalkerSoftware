@@ -921,6 +921,11 @@ document.getElementById("fileInput").addEventListener("change", e => {
 
 
 
+function isMissing(v) {
+    return v === "" || v === null || v === undefined || v === "NA" || isNaN(parseFloat(v));
+}
+
+
 
 document.getElementById("processBtn").addEventListener("click", () => {
     if (csvFile == null) {
@@ -942,11 +947,44 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
         const compoundNames = metabolites.map(r => r[0]);
 
+        const FIRST_CONC_COL = 4;
+        const COL_STEP = 3;
+
+        const minValues = {};
 
         for (let i = 0; i < metabolites.length; i++) {
             const row = metabolites[i];
             const type = row[1]; // the "type/species" column
 
+
+console.log("Before:", metabolites.map(r => r[4]));
+
+
+
+            
+            if (!minValues[compound]) {
+        minValues[compound] = {};
+    }
+
+    for (let col = FIRST_CONC_COL; col < csvHeaders.length; col += COL_STEP) {
+        const val = parseFloat(row[col]);
+
+        if (!isMissing(val)) {
+            if (
+                minValues[compound][col] === undefined ||
+                val < minValues[compound][col]
+            ) {
+                minValues[compound][col] = val;
+            }
+        }
+    }
+
+
+console.log("Before:", metabolites.map(r => r[4]));
+
+            
+            
+            
             // if this group doesn't exist yet, make it
             if (!groups[type]) {
                 groups[type] = [];

@@ -954,6 +954,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
         for (let i = 0; i < metabolites.length; i++) {
             const row = metabolites[i];
+            const compound = row[0];
             const type = row[1]; // the "type/species" column
 
 

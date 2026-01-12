@@ -974,6 +974,7 @@ console.log("Before:", metabolites.map(r => r[4]));
 
         if (isMissing(val)) {
             row[col] = 0.5 * minValues[compound];
+            console.log("there was a missing value for" + compound + " " + col);
         }
     }
 

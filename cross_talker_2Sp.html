@@ -16,7 +16,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    <script type="module" src="cross_talker_script.js"></script>
+    <script type="module" src="cross_talker_2sp_script.js"></script>
 </head>
 
 
@@ -75,19 +75,13 @@
                 <select id="rightSpeciesSelect"></select>
             </label>
 
-            <label class="glass-card">
-                Bottom rectangle species:
-                <br></br>
-                <select id="bottomSpeciesSelect"></select>
-            </label>
-
             <label class="glass-btn">
                 <button type="button" id="visualizeBtn"></button>
                 Visualize
             </label>
 
             <label for="timeDropdown" class="glass-card">
-                Select time interval:
+                Select time:
                 <br></br>
                 <select id="timeDropdown">
                     <!-- options will be added dynamically with JavaScript -->
@@ -153,12 +147,6 @@
                 <label>Left Rectangle Color:</label>
                 <input type="color" id="leftRectColorPicker" value="#4e9eef">
                 <input type="text" id="leftRectColorText" value="#4e9eef" placeholder="#4e9eef">
-            </div>
-
-            <div class="color-control">
-                <label>Middle Rectangle Color:</label>
-                <input type="color" id="midRectColorPicker" value="#ff6d1f">
-                <input type="text" id="midRectColorText" value="#ff6d1f" placeholder="#ff6d1f">
             </div>
 
             <div class="color-control">

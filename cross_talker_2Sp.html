@@ -1,1 +1,640 @@
 
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Cross Talker Software</title>
+
+    <!-- <h2>Metabolite Cross Talker Module 1.1</h2> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.11/jquery.csv.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script type="module" src="cross_talker_script.js"></script>
+</head>
+
+
+<body>
+
+    <div id="layout">
+        <div id="maincanvas"></div>
+        <div id="toolbox">
+
+            <div id="moduleHeader">
+                Cross Talker Module
+
+                <div class="header-glucose">
+                    <svg viewBox="0 0 60 60" width="40" height="40">
+                        <!-- Glucose hexagon ring -->
+                        <polygon class="glucose-ring" points="30,5 55,17 55,43 30,55 5,43 5,17" />
+
+                        <!-- Hydroxyl groups -->
+                        <circle class="oh" cx="55" cy="17" r="4" />
+                        <circle class="oh" cx="55" cy="43" r="4" />
+                        <circle class="oh" cx="30" cy="55" r="4" />
+                        <circle class="oh" cx="5" cy="43" r="4" />
+                        <circle class="oh" cx="5" cy="17" r="4" />
+                        <circle class="oh" cx="30" cy="5" r="4" />
+                    </svg>
+                </div>
+
+
+            </div>
+
+            <label class="glass-btn">
+                <input type="file" id="fileInput" accept=".csv" />
+                CSV File Upload
+            </label>
+
+
+            <label class="glass-btn">
+                <button type="menu" id="processBtn"></button>
+                Process
+            </label>
+
+            <label class="glass-card">
+                Please select your compounds:
+                <select id="compoundSelect" multiple></select>
+
+            </label>
+            <label class="glass-card">
+                Left rectangle species:
+                <br></br>
+                <select id="leftSpeciesSelect"></select>
+            </label>
+
+            <label class="glass-card">
+                Right rectangle species:
+                <br></br>
+                <select id="rightSpeciesSelect"></select>
+            </label>
+
+            <label class="glass-card">
+                Bottom rectangle species:
+                <br></br>
+                <select id="bottomSpeciesSelect"></select>
+            </label>
+
+            <label class="glass-btn">
+                <button type="button" id="visualizeBtn"></button>
+                Visualize
+            </label>
+
+            <label for="timeDropdown" class="glass-card">
+                Select time interval:
+                <br></br>
+                <select id="timeDropdown">
+                    <!-- options will be added dynamically with JavaScript -->
+                </select>
+
+            </label>
+
+            <label class="glass-btn">
+                <button type="button" id="fluxBtn"></button>
+                Compute flux
+            </label>
+
+            <label class="glass-btn">
+                Normalized Concentration
+                <button type="button" id="normConcBtn"></button>
+            </label>
+
+            <label class="glass-btn">
+                Raw Concentration
+                <button type="button" id="rawConcBtn"></button>
+            </label>
+
+            <label>
+                Margin: <span id="marginVal">200</span>
+                <input type="range" id="marginSlider" min="100" max="400" value="200">
+            </label>
+
+            <label>
+                Center Size: <span id="centerVal">500</span>
+                <input type="range" id="centerSlider" min="200" max="700" value="500">
+            </label>
+
+            <label>
+                Canvas Width: <span id="widthVal">1000</span>
+                <input type="range" id="widthSlider" min="500" max="1500" value="1000">
+            </label>
+
+            <label>
+                Canvas Height: <span id="heightVal">1000</span>
+                <input type="range" id="heightSlider" min="500" max="1500" value="1000">
+            </label>
+
+            <label>
+                Padding: <span id="paddingVal">50</span>
+                <input type="range" id="paddingSlider" min="20" max="100" value="50">
+            </label>
+
+            <label>
+                <input type="checkbox" id="wellNamesCheck" /> Names visible in well
+            </label>
+
+            <label>
+                <input type="checkbox" id="showSpeciesCheck" /> Show species in rectangles
+            </label>
+
+
+
+
+
+            <h3>Color Settings</h3>
+
+            <div class="color-control">
+                <label>Left Rectangle Color:</label>
+                <input type="color" id="leftRectColorPicker" value="#4e9eef">
+                <input type="text" id="leftRectColorText" value="#4e9eef" placeholder="#4e9eef">
+            </div>
+
+            <div class="color-control">
+                <label>Middle Rectangle Color:</label>
+                <input type="color" id="midRectColorPicker" value="#ff6d1f">
+                <input type="text" id="midRectColorText" value="#ff6d1f" placeholder="#ff6d1f">
+            </div>
+
+            <div class="color-control">
+                <label>Right Rectangle Color:</label>
+                <input type="color" id="rightRectColorPicker" value="#5dc723">
+                <input type="text" id="rightRectColorText" value="#5dc723" placeholder="#5dc723">
+            </div>
+
+            <div class="color-control">
+                <label>Center Tick Fill:</label>
+                <input type="color" id="tickFillColorPicker" value="#000000">
+                <input type="text" id="tickFillColorText" value="#000000" placeholder="#000000">
+            </div>
+
+            <div class="color-control">
+                <label>Arrow Color In:</label>
+                <input type="color" id="arrowColorPickerIn" value="#000000">
+                <input type="text" id="arrowColorTextIn" value="#000000" placeholder="#000000">
+
+                <br></br>
+
+                <label>Arrow Color Out:</label>
+                <input type="color" id="arrowColorPickerOut" value="#000000">
+                <input type="text" id="arrowColorTextOut" value="#000000" placeholder="#000000">
+
+
+            </div>
+
+
+
+
+            <label class="glass-btn">
+                Download SVG
+                <button id="downloadSVG"></button>
+            </label>
+
+            <label class="glass-btn">
+                Download PNG
+                <button id="downloadPNG" onclick="downloadPNG()"></button>
+            </label>
+
+            <label class="glass-btn">
+                Download PDF
+                <button id="downloadPDF"></button>
+            </label>
+
+
+
+
+            <label class="glass-btn">
+                <button type="button" id="resetBtn"></button>
+                Reset
+            </label>
+
+        </div>
+        <div id="outputCsv"></div>
+    </div>
+
+
+    <style>
+        body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Entire page = flex container */
+#layout {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* LEFT canvas */
+#maincanvas {
+    width: 20%;
+    flex: 1;
+    padding: 20px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    /* centers horizontally */
+    align-items: flex-start;
+    /* pins to the top */
+    margin-top: 10px;
+    /* keep it close to top */
+}
+
+#maincanvas svg {
+    display: block;
+}
+
+/* RIGHT TOOLBOX */
+#toolbox {
+    background: rgba(255, 255, 255, 0.1);
+    width: 18%;
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset 0 0 12px rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    /*border-radius: 5px;*/
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    position: relative;
+    /* important for absolute dropdown positioning */
+    overflow: visible;
+    /* allows dropdown to expand outside container */
+
+    height: 100vh;
+    /* fill viewport height */
+    overflow-y: auto;
+    /* enable vertical scrolling */
+}
+
+
+.glass-btn {
+    /* display: inline-flex;      prevents huge width */
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.2),
+        inset 0 0 12px rgba(255, 255, 255, 0.1);
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 40);
+}
+
+.glass-btn:active {
+    transform: scale(0.97);
+}
+
+
+.glass-btn input {
+    display: none;
+}
+
+.glass-btn button {
+    display: none;
+}
+
+.ts-dropdown {
+    z-index: 1000 !important;
+}
+
+.color-control {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.color-control input[type="color"] {
+    width: 60px;
+    height: 30px;
+    border: none;
+    margin-top: 4px;
+}
+
+.color-control input[type="text"] {
+    margin-top: 5px;
+    padding: 4px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+}
+
+
+
+#moduleHeader {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 16px 24px;
+    border-radius: 20px;
+
+
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.2),
+        inset 0 0 12px rgba(255, 255, 255, 0.1);
+
+    /* gradient text */
+    background: linear-gradient(90deg, #a1c4fd, #c2e9fb, #e0c3fc);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    -webkit-text-stroke: 0.20px rgba(0, 0, 0, 0.472);
+    -webkit-text-fill-color: transparent;
+
+
+
+
+    /* subtle glow */
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+
+
+
+
+    /* smooth gradient animation */
+    animation: gradientShift 10s ease infinite,
+        shimmer 6s ease-in-out infinite;
+}
+
+/* Gradient slides slowly for classy motion */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Subtle brightness shimmer */
+@keyframes shimmer {
+
+    0%,
+    100% {
+        filter: brightness(1);
+    }
+
+    50% {
+        filter: brightness(1.08);
+    }
+}
+
+
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 15px;
+    padding: 12px 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 0 8px rgba(255, 255, 255, 0.1);
+    margin-bottom: 12px;
+    transition: 0.3s ease;
+}
+
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+#moduleHeader::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -100%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(120deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.25) 50%,
+            transparent 100%);
+    pointer-events: none;
+    transform: rotate(0deg);
+    animation: shine 5s infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+
+    40% {
+        left: 120%;
+    }
+
+    100% {
+        left: 120%;
+    }
+}
+
+#toolbox::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: url('data:image/svg+xml;utf8,<svg ...>');
+    /* small noise */
+    opacity: 0.04;
+}
+
+button:hover {
+    transform: translateY(-1px) scale(1.02);
+    transition: 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+
+
+
+
+
+
+
+/* --- Icon appearance --- */
+.mito-icon {
+    width: 28px;
+    height: 28px;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
+
+    pointer-events: none;
+    animation: pulseWave 2s infinite;
+}
+
+@keyframes pulseWave {
+    0% {
+        transform: scale(0.5);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(2);
+        opacity: 0.2;
+    }
+
+    100% {
+        transform: scale(0.5);
+        opacity: 0.8;
+    }
+}
+
+
+/* --- Container for both icons --- */
+.mito-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 6px;
+    position: relative;
+}
+
+/* --- Animation: float + rotate + glow --- */
+@keyframes mitoFloat {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+    }
+
+    25% {
+        transform: translateY(-4px) rotate(3deg);
+        filter: drop-shadow(0 0 8px rgba(255, 180, 80, 0.45));
+    }
+
+    50% {
+        transform: translateY(0px) rotate(0deg);
+        filter: drop-shadow(0 0 10px rgba(255, 180, 80, 0.55));
+    }
+
+    75% {
+        transform: translateY(3px) rotate(-3deg);
+        filter: drop-shadow(0 0 7px rgba(255, 255, 255, 0.4));
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+    }
+}
+
+.mito-animated {
+    animation: mitoFloat 4.5s ease-in-out infinite;
+    transform-origin: center center;
+}
+
+/* Optional shimmer overlay (super subtle) */
+.mito-icon::after {
+    content: "";
+    position: absolute;
+    background: radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.8), transparent 20%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.header-glucose {
+    display: inline-block;
+    vertical-align: middle;
+    z-index: 1000;
+}
+
+.glucose-ring {
+    fill: none;
+    stroke: #a1c4fd;
+    /* linear-gradient(90deg, #a1c4fd, #c2e9fb, #e0c3fc); */
+    stroke-width: 2;
+    stroke-linejoin: round;
+    animation: ring-pulse 5s ease-in-out infinite alternate;
+}
+
+.oh {
+    fill: #e0c3fc;
+    animation: oh-bounce 3s ease-in-out infinite alternate;
+}
+
+/* Ring subtle pulse */
+@keyframes ring-pulse {
+    0% {
+        stroke-width: 2;
+    }
+
+    25% {
+        stroke-width: 4;
+    }
+
+    50% {
+        stroke-width: 6;
+    }
+
+    75% {
+        stroke-width: 4;
+    }
+
+    100% {
+        stroke-width: 2;
+    }
+}
+
+/* Hydroxyl bounce effect */
+@keyframes oh-bounce {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-1px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+    </style>
+
+
+</body>
+</html>

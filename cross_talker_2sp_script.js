@@ -93,12 +93,20 @@ function drawRectangles() {
     const offsetX = (width - totalWidth) / 2;
     const offsetY = 30;
 
-    svg.append("rect")
-        .attr("x", offsetX)
-        .attr("y", offsetY)
-        .attr("width", margin)
-        .attr("height", centerSize)
-        .attr("fill", appearance.leftRectColor);
+    // svg.append("rect")
+    //     .attr("x", offsetX)
+    //     .attr("y", offsetY)
+    //     .attr("width", margin)
+    //     .attr("height", centerSize)
+    //     .attr("fill", appearance.leftRectColor);
+
+    svg.append("image")
+    .attr("x", offsetX)
+    .attr("y", offsetY)
+    .attr("width", margin)
+    .attr("height", centerSize)
+    .attr("href", "mito.png")
+    .attr("preserveAspectRatio", "xMidYMid slice");
 
     // svg.append("rect")
     //     .attr("x", offsetX + margin)
@@ -107,12 +115,20 @@ function drawRectangles() {
     //     .attr("height", margin)
     //     .attr("fill", appearance.midRectColor);
 
-    svg.append("rect")
-        .attr("x", offsetX + margin + centerSize)
-        .attr("y", offsetY)
-        .attr("width", margin)
-        .attr("height", centerSize)
-        .attr("fill", appearance.rightRectColor);
+    // svg.append("rect")
+    //     .attr("x", offsetX + margin + centerSize)
+    //     .attr("y", offsetY)
+    //     .attr("width", margin)
+    //     .attr("height", centerSize)
+    //     .attr("fill", appearance.rightRectColor);
+
+svg.append("image")
+    .attr("x", offsetX + margin + centerSize)
+    .attr("y", offsetY)
+    .attr("width", margin)
+    .attr("height", centerSize)
+    .attr("href", "mito.png")
+    .attr("preserveAspectRatio", "xMidYMid slice");
 
     svg.append("rect")
         .attr("x", offsetX + margin)

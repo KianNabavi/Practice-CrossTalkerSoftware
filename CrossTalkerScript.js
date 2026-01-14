@@ -1526,35 +1526,35 @@ function refreshCanvas() {
     drawDiagScale();
 }
 
-document.getElementById("marginSlider").addEventListener("input", e => {
-    margin = Number(e.target.value);
-    document.getElementById("marginVal").textContent = margin;
-    refreshCanvas();
-});
+// document.getElementById("marginSlider").addEventListener("input", e => {
+//     margin = Number(e.target.value);
+//     document.getElementById("marginVal").textContent = margin;
+//     refreshCanvas();
+// });
 
-document.getElementById("centerSlider").addEventListener("input", e => {
-    centerSize = Number(e.target.value);
-    document.getElementById("centerVal").textContent = centerSize;
-    refreshCanvas();
-});
+// document.getElementById("centerSlider").addEventListener("input", e => {
+//     centerSize = Number(e.target.value);
+//     document.getElementById("centerVal").textContent = centerSize;
+//     refreshCanvas();
+// });
 
-document.getElementById("widthSlider").addEventListener("input", e => {
-    width = Number(e.target.value);
-    document.getElementById("widthVal").textContent = width;
-    refreshCanvas();
-});
+// document.getElementById("widthSlider").addEventListener("input", e => {
+//     width = Number(e.target.value);
+//     document.getElementById("widthVal").textContent = width;
+//     refreshCanvas();
+// });
 
-document.getElementById("heightSlider").addEventListener("input", e => {
-    height = Number(e.target.value);
-    document.getElementById("heightVal").textContent = height;
-    refreshCanvas();
-});
+// document.getElementById("heightSlider").addEventListener("input", e => {
+//     height = Number(e.target.value);
+//     document.getElementById("heightVal").textContent = height;
+//     refreshCanvas();
+// });
 
-document.getElementById("paddingSlider").addEventListener("input", e => {
-    paddingPercentage = Number(e.target.value);
-    document.getElementById("paddingVal").textContent = paddingPercentage;
-    refreshCanvas();
-});
+// document.getElementById("paddingSlider").addEventListener("input", e => {
+//     paddingPercentage = Number(e.target.value);
+//     document.getElementById("paddingVal").textContent = paddingPercentage;
+//     refreshCanvas();
+// });
 
 document.getElementById("wellNamesCheck").addEventListener("change", e => {
     showWellNames = e.target.checked;
@@ -1858,4 +1858,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Attach below header
     header.appendChild(iconRow);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+function linkSliderAndInput(sliderId, inputId, onChange) {
+    const slider = document.getElementById(sliderId);
+    const input  = document.getElementById(inputId);
+
+    // slider → input
+    slider.addEventListener("input", () => {
+        input.value = slider.value;
+        onChange(parseFloat(slider.value));
+    });
+
+    // input → slider
+    input.addEventListener("input", () => {
+        slider.value = input.value;
+        onChange(parseFloat(input.value));
+    });
+}
+
+linkSliderAndInput("centerSlider", "centerInput", val => {
+    centerSize = val;
+    refreshCanvas();
+});
+
+linkSliderAndInput("marginSlider", "marginInput", val => {
+    margin = val;
+    refreshCanvas();
+});
+
+linkSliderAndInput("widthSlider", "widthInput", val => {
+    width = val;
+    refreshCanvas();
+});
+
+linkSliderAndInput("heightSlider", "heightInput", val => {
+    height = val;
+    refreshCanvas();
+});
+
+linkSliderAndInput("paddingSlider", "paddingInput", val => {
+    margin = val;
+    refreshCanvas();
 });

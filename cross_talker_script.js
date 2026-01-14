@@ -1289,7 +1289,7 @@ function calculateFlux(time) {
 
         console.log("normalization: " + metabolite + " conc: " + concAtTime + " z score: " + normalizedConc);
 
-        const normalizedConc = (concAtTime - mean) / std;
+        // const normalizedConc = (concAtTime - mean) / std;
 
         // write normalized value into cloned data
         const clonedRows = metaboliteNormalMap[metabolite];

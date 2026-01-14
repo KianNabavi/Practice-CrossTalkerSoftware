@@ -921,9 +921,9 @@ document.getElementById("fileInput").addEventListener("change", e => {
 
 
 
-function isMissing(v) {
-    return v === "" || v === null || v === undefined || v === "NA" || isNaN(parseFloat(v));
-}
+// function isMissing(v) {
+//     return v === "" || v === null || v === undefined || v === "NA" || isNaN(parseFloat(v));
+// }
 
 
 
@@ -958,28 +958,28 @@ document.getElementById("processBtn").addEventListener("click", () => {
             const type = row[1]; // the "type/species" column
 
 
-console.log("Before:", metabolites.map(r => r[4]));
+// console.log("Before:", metabolites.map(r => r[4]));
 
 
 
             
-            if (!minValues[compound]) {
-        minValues[compound] = {row};
-    }
+//             if (!minValues[compound]) {
+//         minValues[compound] = {row};
+//     }
             
 
-    for (let col = FIRST_CONC_COL; col < csvHeaders.length; col += COL_STEP) {
-        const val = parseFloat(row[col]);
-        const minVal = minValues[compound][col];
+//     for (let col = FIRST_CONC_COL; col < csvHeaders.length; col += COL_STEP) {
+//         const val = parseFloat(row[col]);
+//         const minVal = minValues[compound][col];
 
-        if (isMissing(val)) {
-            row[col] = 0.5 * minValues[compound];
-            console.log("there was a missing value for" + compound + " " + col);
-        }
-    }
+//         if (isMissing(val)) {
+//             row[col] = 0.5 * minValues[compound];
+//             console.log("there was a missing value for" + compound + " " + col);
+//         }
+//     }
 
 
-console.log("After:", metabolites.map(r => r[4]));
+// console.log("After:", metabolites.map(r => r[4]));
 
             
             
@@ -1257,20 +1257,38 @@ function calculateFlux(time) {
         const controlConcAtTime = parseFloat(controlRow[time + 1]);
         const controlStddev = parseFloat(controlRow[time + 2]);
 
-        const normalizedConc = ((concAtTime - controlConcAtTime) / (Math.sqrt((stddevAtTime * ((concAtTime) ** 2)) + (controlStddev * ((controlConcAtTime) ** 2)))));
+        // const normalizedConc = ((concAtTime - controlConcAtTime) / (Math.sqrt((stddevAtTime * ((concAtTime) ** 2)) + (controlStddev * ((controlConcAtTime) ** 2)))));
 
         // metaboliteNormalMap[row[time +1]] = normalizedConc;
 
-        const clonedRows = metaboliteNormalMap[metabolite];
+        // const clonedRows = metaboliteNormalMap[metabolite];
 
-        const clonedRow = clonedRows.find(r =>
-            r[1] === species && parseFloat(r[time]) === timePoint
-        );
+        // const clonedRow = clonedRows.find(r =>
+        //     r[1] === species && parseFloat(r[time]) === timePoint
+        // );
 
-        // update the concentration column inside the cloned row
-        clonedRow[time + 1] = normalizedConc;
+        // // update the concentration column inside the cloned row
+        // clonedRow[time + 1] = normalizedConc;
+
+        // normalizedConcValues.push(normalizedConc);
+
+        const values = metabolites
+            .filter( =>
+                r[0] == metabolite && parseFloat(r[time]) == timePoint && r[1] != "Control"
+            )
+            .map(r => parseFloat(r[time+1]))
+            .filter(v => !isNaN(v));
+
+        const mean = values.reduce((a,b) => a+b, 0) / values.length;
+
+        const std = Math.sqrt(values.reduce((sum, x) => sum + (x-mean) ** 2, 0) / values.length);
+
+        if(std==0) return;
+
+        const normalizedConc = (concAtTime - mean) / std;
 
         normalizedConcValues.push(normalizedConc);
+            
 
     });
 

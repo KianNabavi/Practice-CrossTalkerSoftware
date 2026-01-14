@@ -411,7 +411,7 @@ function drawAxes() {
         // const maxFluxAbs = d3.max(allFluxMagnitudes);
 
         const minArrowWidth = 1;
-        const maxArrowWidth = 8;
+        const maxArrowWidth = 10;
 
         // thicknessScale = d3.scaleSymlog()
         //     .domain([minFluxAbs, maxFluxAbs])
@@ -600,7 +600,7 @@ function makeScale(){
 
     tickSizeScale = d3.scaleSymlog()
         .domain([minVal, maxVal])
-        .range([5, 20])
+        .range([2.5, 30])
         .constant(1);
 }
 

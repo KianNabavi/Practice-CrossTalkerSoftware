@@ -600,7 +600,7 @@ function makeScale(){
 
     tickSizeScale = d3.scaleSymlog()
         .domain([minVal, maxVal])
-        .range([2.5, 30])
+        .range([5, 20])
         .constant(1);
 }
 

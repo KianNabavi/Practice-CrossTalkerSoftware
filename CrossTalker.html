@@ -15,7 +15,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-    <script type="module" src="cross_talker_script.js"></script>
+    <script type="module" src="CrossTalkerScript.js"></script>
 </head>
 
 
@@ -111,11 +111,13 @@
 
             <label>
                 Margin: <span id="marginVal">200</span>
+                <input type="number" id="marginInput" min="100" max="400" value="200">
                 <input type="range" id="marginSlider" min="100" max="400" value="200">
             </label>
 
             <label>
                 Center Size: <span id="centerVal">500</span>
+                <input type="number" id="centerInput" min="200" max="700" value="500">
                 <input type="range" id="centerSlider" min="200" max="700" value="500">
             </label>
 
@@ -131,6 +133,7 @@
 
             <label>
                 Padding: <span id="paddingVal">50</span>
+                <input type="number" id="paddingInput" min="20" max="100" value="50">
                 <input type="range" id="paddingSlider" min="20" max="100" value="50">
             </label>
 
@@ -139,7 +142,7 @@
             </label>
 
             <label>
-                <input type="checkbox" id="showSpeciesCheck" /> Show species in rectangles
+                <input type="checkbox" id="showSpeciesCheck" checked/> Show species in rectangles
             </label>
 
 

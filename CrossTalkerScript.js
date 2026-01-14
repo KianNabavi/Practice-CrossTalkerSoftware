@@ -1909,6 +1909,6 @@ linkSliderAndInput("heightSlider", "heightInput", val => {
 });
 
 linkSliderAndInput("paddingSlider", "paddingInput", val => {
-    margin = val;
+    paddingPercentage = val;
     refreshCanvas();
 });

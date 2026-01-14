@@ -1287,6 +1287,8 @@ function calculateFlux(time) {
 
         const normalizedConc = (concAtTime - mean) / std;
 
+        console.log("normalization: " + metabolite + " conc: " + concAtTime + " z score: " + normalizedConc);
+
         normalizedConcValues.push(normalizedConc);
             
 

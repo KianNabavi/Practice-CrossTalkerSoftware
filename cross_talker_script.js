@@ -1273,7 +1273,7 @@ function calculateFlux(time) {
         // normalizedConcValues.push(normalizedConc);
 
         const values = metabolites
-            .filter( =>
+            .filter(r =>
                 r[0] == metabolite && parseFloat(r[time]) == timePoint && r[1] != "Control"
             )
             .map(r => parseFloat(r[time+1]))

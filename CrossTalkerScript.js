@@ -960,15 +960,24 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
             
             let minValueRow = 0;
-            for (i = FIRST_CONC_COL; i < row.length; i += COL_STEP){
-                if (row[i] < minValueRow || minValueRow == 0){
-                    minValueRow = row[i];
-                }
-                if (row[i] == "" || row[i] == null){
-                    console.log("metabolite: " + compound + " replaced with: " + minValueRow + " for species: " + type);
-                    row[i] = 0.5 * minValueRow;
-                    console.log("new value: " + row[i]);
-                }
+    for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
+        const val = Number(row[missCol]);
+
+        if (!Number.isNaN(val) && (val < minValueRow || minValueRow === 0)) {
+            minValueRow = val;
+        }
+
+        if (row[missCol] === "" || row[missCol] === null) {
+            console.log(
+                "metabolite:", compound,
+                "replaced with:", minValueRow,
+                "for species:", type
+            );
+
+            row[col] = 0.5 * minValueRow;
+            console.log("new value:", row[missCol]);
+        }
+    }
             }
 
 

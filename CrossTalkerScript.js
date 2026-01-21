@@ -960,24 +960,24 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
             
             let minValueRow = 0;
-    for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
-        const val = Number(row[missCol]);
-
-        if (!Number.isNaN(val) && (val < minValueRow || minValueRow === 0)) {
-            minValueRow = val;
-        }
-
-        if (row[missCol] === "" || row[missCol] === null) {
-            console.log(
-                "metabolite:", compound,
-                "replaced with:", minValueRow,
-                "for species:", type
-            );
-
-            row[col] = 0.5 * minValueRow;
-            console.log("new value:", row[missCol]);
-        }
-    }
+            for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
+                const val = Number(row[missCol]);
+        
+                if (!Number.isNaN(val) && (val < minValueRow || minValueRow === 0)) {
+                    minValueRow = val;
+                }
+        
+                if (row[missCol] === "" || row[missCol] === null) {
+                    console.log(
+                        "metabolite:", compound,
+                        "replaced with:", minValueRow,
+                        "for species:", type
+                    );
+        
+                    row[missCol] = 0.5 * minValueRow;
+                    console.log("new value:", row[missCol]);
+                }
+            }
             }
 
 
@@ -1036,7 +1036,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
 
 
-    };
+    });
 
     reader.readAsText(csvFile);
 

@@ -958,6 +958,20 @@ document.getElementById("processBtn").addEventListener("click", () => {
             const type = row[1]; // the "type/species" column
 
 
+            
+            let minValueRow = 0;
+            for (i = FIRST_CONC_COL; i < row.length; i += COL_STEP){
+                if (row[i[ < minValueRow || minValueRow == 0){
+                    minValueRow = row[i];
+                }
+                if (row[i] == "" || row[i] == null){
+                    console.log("metabolite: " + compound + " replaced with: " + minValueRow + " for species: " + type);
+                    row[i] = 0.5 * minValueRow;
+                    console.log("new value: " + row[i];
+                }
+            }
+
+
 // console.log("Before:", metabolites.map(r => r[4]));
 
 

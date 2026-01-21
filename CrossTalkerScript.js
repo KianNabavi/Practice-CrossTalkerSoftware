@@ -1015,7 +1015,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
             // add this metabolite to its group
             groups[type].push(row);
         
-
+    }
         // for(let i = 2; i < metabolites[i].length; i += 2){
         //     console.log("this is time value #" + i/2);
         // }
@@ -1036,7 +1036,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
 
     }
-});
+);
 
 //    reader.readAsText(csvFile);
 

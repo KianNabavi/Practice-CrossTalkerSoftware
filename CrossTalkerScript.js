@@ -963,7 +963,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
             for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
                 const val = Number(row[missCol]);
         
-                if (!Number.isNaN(val) && (val < minValueRow || minValueRow === 0)) {
+                if (val < minValueRow || minValueRow === 0) {
                     minValueRow = val;
                 }
         

@@ -959,7 +959,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
 
             
-            let minValueRow = 0;
+            //let minValueRow = 0;
             // for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
             //     const val = Number(row[missCol]);
         

@@ -1028,7 +1028,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
         populateTimeDropdown(csvHeaders);
         
-    }
+    };
         // for(let i = 2; i < metabolites[i].length; i += 2){
         //     console.log("this is time value #" + i/2);
         // }
@@ -1048,7 +1048,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
         // populateTimeDropdown(csvHeaders);
 
 
-    }
+    
     reader.readAsText(csvFile);
 );
 

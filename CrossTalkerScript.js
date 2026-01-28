@@ -999,7 +999,7 @@ for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
     if (row[missCol] === "" || row[missCol] === null) {
         row[missCol] = 0.5 * minValueRow;
 
-                            console.log("metabolite:", compound, "replaced with:", minValueRow, "for species:", type);
+                            console.log("metabolite:", compound, "replaced with:",  row[missCol], "for species:", type);
     }
 }
 

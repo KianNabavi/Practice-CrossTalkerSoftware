@@ -960,25 +960,49 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
             
             let minValueRow = 0;
+            // for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
+            //     const val = Number(row[missCol]);
+        
+            //     if (val < minValueRow || minValueRow === 0) {
+            //         minValueRow = val;
+            //     }
+        
+            //     if (row[missCol] === "" || row[missCol] === null) {
+            //         console.log(
+            //             "metabolite:", compound,
+            //             "replaced with:", minValueRow,
+            //             "for species:", type
+            //         );
+        
+            //         row[missCol] = 0.5 * minValueRow;
+            //         console.log("new value:", row[missCol]);
+            //     }
+            // }
+
+            let minValueRow = Infinity;
+
+for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
+    const raw = row[missCol];
+    const val = Number(raw);
+
+    // skip missing or non-numeric values
+    if (raw === "" || raw === null || Number.isNaN(val)) {
+        continue;
+    }
+
+    if (val < minValueRow) {
+        minValueRow = val;
+    }
+}
+
             for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
-                const val = Number(row[missCol]);
-        
-                if (val < minValueRow || minValueRow === 0) {
-                    minValueRow = val;
-                }
-        
-                if (row[missCol] === "" || row[missCol] === null) {
-                    console.log(
-                        "metabolite:", compound,
-                        "replaced with:", minValueRow,
-                        "for species:", type
-                    );
-        
-                    row[missCol] = 0.5 * minValueRow;
-                    console.log("new value:", row[missCol]);
-                }
-            }
-            
+    if (row[missCol] === "" || row[missCol] === null) {
+        row[missCol] = 0.5 * minValueRow;
+
+                            console.log("metabolite:", compound, "replaced with:", minValueRow, "for species:", type);
+    }
+}
+
 
 
 // console.log("Before:", metabolites.map(r => r[4]));

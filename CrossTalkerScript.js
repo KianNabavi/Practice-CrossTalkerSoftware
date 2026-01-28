@@ -1050,7 +1050,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
     
     reader.readAsText(csvFile);
-);
+});
 
 //    reader.readAsText(csvFile);
 

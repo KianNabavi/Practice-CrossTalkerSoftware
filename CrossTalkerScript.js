@@ -978,7 +978,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
                     console.log("new value:", row[missCol]);
                 }
             }
-            }
+            
 
 
 // console.log("Before:", metabolites.map(r => r[4]));
@@ -1017,6 +1017,7 @@ document.getElementById("processBtn").addEventListener("click", () => {
 
 
                 console.log(groups);
+        }
 
         ['compoundSelect', 'leftSpeciesSelect', 'rightSpeciesSelect', 'bottomSpeciesSelect', 'timeDropdown']
             .forEach(id => document.getElementById(id).disabled = false);

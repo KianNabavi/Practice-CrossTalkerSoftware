@@ -10,6 +10,7 @@ let centerSize = 500;
 
 let paddingPercentage = 50;
 
+
 let showWellNames = false;
 
 let fluxData = [];

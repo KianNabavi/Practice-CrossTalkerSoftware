@@ -1897,7 +1897,8 @@ function downloadPNG() {
 //     });
 // }
 
-
+document.getElementById("downloadPDF")
+    .addEventListener("click", downloadPDF);
 
 async function downloadPDF() {
   const { jsPDF } = window.jspdf;

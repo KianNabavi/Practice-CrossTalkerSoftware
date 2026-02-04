@@ -561,7 +561,7 @@ function drawAxes() {
                         .attr("x2", x2)
                         .attr("y2", y2)
                         .attr("stroke", d.flux >= 0 ? appearance.arrowColorOut : appearance.arrowColorIn)
-                        .attr("stroke-width", d.thickness)
+                        .attr("stroke-width", d.thicknessLegend)
                         .attr("marker-end", "url(#arrow)");
                 });
 

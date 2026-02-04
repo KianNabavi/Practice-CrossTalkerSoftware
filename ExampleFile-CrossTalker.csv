@@ -1,0 +1,41 @@
+﻿Compound,Type/Species (Control/Community included),Diffusion Coefficient,Time 1,[ ] 1,SD 1,Time 2,[ ] 2,SD 2,Time 3,[ ] 3,SD 3
+Lactate,Western Mustangae,0.717,0,1050,20,9,2200,450,18,33000,450
+Lactate,Staffing Shortage,0.717,0,1050,20,9,17500,3000,18,21000,3000
+Lactate,Bacteria McBacter,0.717,0,1050,20,9,13800,2500,18,20000,2500
+Lactate,Community,0.717,0,1050,20,9,2600,400,18,17000,400
+Lactate,Control,0.717,0,1050,20,9,1080,30,18,1212,30
+Adenine,Western Mustangae,0.717,0,230,5,9,380,56,18,140,56
+Adenine,Staffing Shortage,0.717,0,230,5,9,5,1,18,15,1
+Adenine,Bacteria McBacter,0.717,0,230,5,9,350,50,18,495,50
+Adenine,Community,0.717,0,230,5,9,245,10,18,300,10
+Adenine,Control,0.717,0,230,5,9,240,9,18,234.5,9
+Serine,Western Mustangae,0.717,0,3400,50,9,70,11,18,900,11
+Serine,Staffing Shortage,0.717,0,3400,50,9,40,3,18,40,3
+Serine,Bacteria McBacter,0.717,0,3400,50,9,90,10,18,70,10
+Serine,Community,0.717,0,3400,50,9,1790,46,18,1000,46
+Serine,Control,0.717,0,3400,50,9,3600,123,18,3400.1,123
+Threonine,Western Mustangae,0.717,0,3390,110,9,2700,400,18,3000,400
+Threonine,Staffing Shortage,0.717,0,3390,110,9,3400,404,18,35,404
+Threonine,Bacteria McBacter,0.717,0,3390,110,9,170,20,18,2000,20
+Threonine,Community,0.717,0,3390,110,9,3000,90,18,27,90
+Threonine,Control,0.717,0,3390,110,9,3800,150,18,3700,150
+Mevalonate,Western Mustangae,0.717,0,60,2,9,70,10,18,4000,10
+Mevalonate,Staffing Shortage,0.717,0,60,2,9,50,7,18,210,7
+Mevalonate,Bacteria McBacter,0.717,0,60,2,9,1100,190,18,1212,190
+Mevalonate,Community,0.717,0,60,2,9,140,8.5,18,400,8.5
+Mevalonate,Control,0.717,0,60,2,9,60,4,18,60.1,4
+Aconitate,Western Mustangae,0.717,0,11,0.3,9,10,3,18,300,3
+Aconitate,Staffing Shortage,0.717,0,11,0.3,9,16,3,18,19,3
+Aconitate,Bacteria McBacter,0.717,0,11,0.3,9,85,13,18,100,13
+Aconitate,Community,0.717,0,11,0.3,9,19,0.54,18,40,0.54
+Aconitate,Control,0.717,0,11,0.3,9,10,0.45,18,10,0.45
+Glucose,Western Mustangae,0.717,0,40940,540,9,30000,4100,18,14000,4100
+Glucose,Staffing Shortage,0.717,0,40940,540,9,3300,700,18,9000,700
+Glucose,Bacteria McBacter,0.717,0,40940,540,9,21000,2700,18,800,2700
+Glucose,Community,0.717,0,40940,540,9,37000,1000,18,27777,1000
+Glucose,Control,0.717,0,40940,540,9,44000,1200,18,43010,1200
+Citrulline,Western Mustangae,0.717,0,130,2,9,80,15,18,202,15
+Citrulline,Staffing Shortage,0.717,0,130,2,9,140,15,18,203,15
+Citrulline,Bacteria McBacter,0.717,0,130,2,9,365,40,18,204,40
+Citrulline,Community,0.717,0,130,2,9,140,5,18,260,5
+Citrulline,Control,0.717,0,130,2,9,130,5,18,130.2,5

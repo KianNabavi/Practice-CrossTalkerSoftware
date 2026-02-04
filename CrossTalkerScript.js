@@ -1912,8 +1912,8 @@ document.getElementById("downloadPDF").addEventListener("click", async () => {
   canvas.width = width * 3;
   canvas.height = height * 3;
 
-    scaledWidth = width*3;
-    scaledHeight = height*3;
+    let scaledWidth = width*3;
+    let scaledHeight = height*3;
 
   const ctx = canvas.getContext("2d");
 

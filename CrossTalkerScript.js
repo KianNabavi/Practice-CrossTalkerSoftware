@@ -1880,22 +1880,47 @@ function downloadPNG() {
 }
 
 
+// async function downloadPDF() {
+//     const { jsPDF } = window.jspdf;
+
+//     const svg = document.getElementById("mainSVG");
+//     const serializer = new XMLSerializer();
+//     const svgData = serializer.serializeToString(svg);
+
+//     const pdf = new jsPDF("landscape", "pt", [
+//         svg.clientWidth,
+//         svg.clientHeight
+//     ]);
+
+//     pdf.svg(svg, { x: 0, y: 0 }).then(() => {
+//         pdf.save(`diagram_${getTimestamp()}.pdf`);
+//     });
+// }
+
+
+
 async function downloadPDF() {
-    const { jsPDF } = window.jspdf;
+  const { jsPDF } = window.jspdf;
 
-    const svg = document.getElementById("mainSVG");
-    const serializer = new XMLSerializer();
-    const svgData = serializer.serializeToString(svg);
+  const svg = document.getElementById("mainSVG");
+  if (!svg) {
+    console.error("SVG not found");
+    return;
+  }
 
-    const pdf = new jsPDF("landscape", "pt", [
-        svg.clientWidth,
-        svg.clientHeight
-    ]);
+  const pdf = new jsPDF("landscape", "pt", [
+    svg.clientWidth,
+    svg.clientHeight
+  ]);
 
-    pdf.svg(svg, { x: 0, y: 0 }).then(() => {
-        pdf.save(`diagram_${getTimestamp()}.pdf`);
-    });
+  try {
+    await pdf.svg(svg, { x: 0, y: 0 });
+    pdf.save(`diagram_${getTimestamp()}.pdf`);
+  } catch (err) {
+    console.error("SVG to PDF failed:", err);
+  }
 }
+
 
 
 

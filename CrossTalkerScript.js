@@ -1410,6 +1410,48 @@ function calculateFlux(time) {
 
 
 
+document.getElementById("fluxBtn").addEventListener("click", async () => {
+  if (!fluxData || fluxData.length === 0) {
+    alert("No flux data available to download!");
+    return;
+  }
+
+  // Extract headers automatically
+  const headers = Object.keys(fluxData[0]);
+  const csvRows = [];
+
+  // Add header row
+  csvRows.push(headers.join(","));
+
+  // Add each data row
+  fluxData.forEach(row => {
+    const values = headers.map(header => {
+      let val = row[header];
+      if (typeof val === "string") {
+        // Escape quotes
+        val = `"${val.replace(/"/g, '""')}"`;
+      }
+      return val;
+    });
+    csvRows.push(values.join(","));
+  });
+
+  const csvString = csvRows.join("\n");
+
+  // Create a blob and download it
+  const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `fluxData_${getTimestamp()}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+
+
 function drawLegend(minFlux, maxFlux, minConc, maxConc) {
 
     // remove old legend
@@ -1878,6 +1920,14 @@ function downloadPNG() {
     };
     img.src = url;
 }
+
+
+
+
+
+
+
+
 
 
 document.getElementById("downloadPNG").addEventListener("click", async () => {

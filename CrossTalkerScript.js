@@ -1924,7 +1924,7 @@ document.getElementById("downloadPNG").addEventListener("click", async () => {
   };
 
   img.src = url;
-}
+});
 
 
 // async function downloadPDF() {

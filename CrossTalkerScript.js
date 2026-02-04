@@ -1448,7 +1448,7 @@ document.getElementById("fluxBtn").addEventListener("click", async () => {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
+});
 
 
 

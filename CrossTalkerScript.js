@@ -1880,6 +1880,53 @@ function downloadPNG() {
 }
 
 
+document.getElementById("downloadPNG").addEventListener("click", async () => {
+  const svg = document.querySelector("svg");
+  if (!svg) {
+    console.error("SVG not found");
+    return;
+  }
+
+  const serializer = new XMLSerializer();
+  const svgData = serializer.serializeToString(svg);
+
+
+  const img = new Image();
+  const svgBlob = new Blob([svgData], {
+    type: "image/svg+xml;charset=utf-8"
+  });
+  const url = URL.createObjectURL(svgBlob);
+
+  img.onload = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext("2d");
+
+    // Optional but improves text/lines
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
+    // Draw SVG scaled down to correct size
+    ctx.drawImage(img, 0, 0, width * SCALE, height * SCALE);
+
+    const pngURL = canvas.toDataURL("image/png");
+
+    const a = document.createElement("a");
+    a.href = pngURL;
+    a.download = `diagram_${getTimestamp()}.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+  };
+
+  img.src = url;
+}
+
+
 // async function downloadPDF() {
 //     const { jsPDF } = window.jspdf;
 

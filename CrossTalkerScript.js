@@ -1909,7 +1909,7 @@ document.getElementById("downloadPNG").addEventListener("click", async () => {
     ctx.imageSmoothingQuality = "high";
 
     // Draw SVG scaled down to correct size
-    ctx.drawImage(img, 0, 0, width * SCALE, height * SCALE);
+    ctx.drawImage(img, 0, 0, width, height);
 
     const pngURL = canvas.toDataURL("image/png");
 

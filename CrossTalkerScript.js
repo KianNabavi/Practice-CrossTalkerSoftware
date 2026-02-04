@@ -1887,6 +1887,14 @@ document.getElementById("downloadPNG").addEventListener("click", async () => {
     return;
   }
 
+
+  const useWhiteBackground = confirm(
+    "Do you want a white background?\n\n" +
+    "• OK = White background\n" +
+    "• Cancel = Transparent background"
+  );
+    
+
   const serializer = new XMLSerializer();
   const svgData = serializer.serializeToString(svg);
 
@@ -1903,6 +1911,13 @@ document.getElementById("downloadPNG").addEventListener("click", async () => {
     canvas.height = height;
 
     const ctx = canvas.getContext("2d");
+
+    if (useWhiteBackground) {
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
+      
 
     // Optional but improves text/lines
     ctx.imageSmoothingEnabled = true;

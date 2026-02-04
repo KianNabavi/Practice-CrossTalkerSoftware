@@ -1897,30 +1897,30 @@ function downloadPNG() {
 //     });
 // }
 
-document.getElementById("downloadPDF")
-    .addEventListener("click", downloadPDF);
-
-async function downloadPDF() {
+document.getElementById("downloadPDF").addEventListener("click", async () => {
   const { jsPDF } = window.jspdf;
 
-  const svg = document.getElementById("mainSVG");
+  // Grab the SVG the same way your working button does
+  const svg = document.querySelector("svg");
   if (!svg) {
     console.error("SVG not found");
     return;
   }
 
-  const pdf = new jsPDF("landscape", "pt", [
-    svg.clientWidth,
-    svg.clientHeight
-  ]);
+  const width =
+    svg.viewBox?.baseVal?.width || svg.clientWidth || 800;
+  const height =
+    svg.viewBox?.baseVal?.height || svg.clientHeight || 600;
+
+  const pdf = new jsPDF("landscape", "pt", [width, height]);
 
   try {
-    await pdf.svg(svg, { x: 0, y: 0 });
+    await pdf.svg(svg);
     pdf.save(`diagram_${getTimestamp()}.pdf`);
   } catch (err) {
-    console.error("SVG to PDF failed:", err);
+    console.error("PDF generation failed:", err);
   }
-}
+});
 
 
 

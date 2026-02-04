@@ -1909,8 +1909,8 @@ document.getElementById("downloadPDF").addEventListener("click", async () => {
   // const width = svg.viewBox.baseVal.width || svg.clientWidth || 800;
   // const height = svg.viewBox.baseVal.height || svg.clientHeight || 600;
 
-  canvas.width = width * 3;
-  canvas.height = height * 3;
+  canvas.Cwidth = width * 3;
+  canvas.Cheight = height * 3;
 
   const ctx = canvas.getContext("2d");
 
@@ -1920,7 +1920,7 @@ document.getElementById("downloadPDF").addEventListener("click", async () => {
 
   const imgData = canvas.toDataURL("image/png");
 
-  const pdf = new jsPDF("landscape", "pt", [width, height]);
+  const pdf = new jsPDF("landscape", "pt", [Cwidth, Cheight]);
   pdf.addImage(imgData, "PNG", 0, 0, width, height);
   pdf.save(`diagram_${getTimestamp()}.pdf`);
 });

@@ -1899,27 +1899,30 @@ function downloadPNG() {
 
 document.getElementById("downloadPDF").addEventListener("click", async () => {
   const { jsPDF } = window.jspdf;
-
-  // Grab the SVG the same way your working button does
   const svg = document.querySelector("svg");
-  if (!svg) {
-    console.error("SVG not found");
-    return;
-  }
+  if (!svg) return console.error("SVG not found");
 
-  const width =
-    svg.viewBox?.baseVal?.width || svg.clientWidth || 800;
-  const height =
-    svg.viewBox?.baseVal?.height || svg.clientHeight || 600;
+  const serializer = new XMLSerializer();
+  const svgString = serializer.serializeToString(svg);
+
+  const canvas = document.createElement("canvas");
+  const width = svg.viewBox.baseVal.width || svg.clientWidth || 800;
+  const height = svg.viewBox.baseVal.height || svg.clientHeight || 600;
+
+  canvas.width = width;
+  canvas.height = height;
+
+  const ctx = canvas.getContext("2d");
+
+  // Render SVG onto canvas
+  const v = await canvg.Canvg.fromString(ctx, svgString);
+  await v.render();
+
+  const imgData = canvas.toDataURL("image/png");
 
   const pdf = new jsPDF("landscape", "pt", [width, height]);
-
-  try {
-    await pdf.svg(svg);
-    pdf.save(`diagram_${getTimestamp()}.pdf`);
-  } catch (err) {
-    console.error("PDF generation failed:", err);
-  }
+  pdf.addImage(imgData, "PNG", 0, 0, width, height);
+  pdf.save(`diagram_${getTimestamp()}.pdf`);
 });
 
 

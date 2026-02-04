@@ -443,15 +443,19 @@ function drawAxes() {
             .range([minThickness, maxThickness])
             .constant(1);
 
+const MIN_POSITIVE = 0.001; // small value to replace zeros
 
-        legendThicknessScale = d3.scaleLog()
-            .domain([minFluxAbs, maxFluxAbs])
-            .range([minThickness, maxThickness]);
+legendThicknessScale = d3.scaleLog()
+    .domain([MIN_POSITIVE, maxFluxAbs])
+    .range([minThickness, maxThickness]);
 
-        // assign thickness to each flux object
-        fluxData.forEach(d => {
-            d.thicknessLegend = legendThicknessScale(d.fluxAbs);
-            d.thickness = thicknessScale(d.flux);
+// assign thickness to each flux object
+fluxData.forEach(d => {
+    // replace zero or negative flux with MIN_POSITIVE for log scale
+    const safeFluxAbs = d.fluxAbs <= 0 ? MIN_POSITIVE : d.fluxAbs;
+
+    d.thicknessLegend = legendThicknessScale(safeFluxAbs);
+    d.thickness = thicknessScale(d.flux);
             // const conc = tickSizeArray.find(t => t.metabolite === d.metabolite).concentration;
             // const tickSize = tickSizeScale(conc);
             // const halfTick = tickSize / 2;

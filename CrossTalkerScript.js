@@ -83,6 +83,23 @@ document.getElementById("showSpeciesCheck").addEventListener("change", (e) => {
 });
 
 
+document.getElementById("exampleFileDownload").addEventListener("click", () => {
+     const fileUrl = "ExampleFile-CrossTalker.csv";
+    
+    // Optional: set filename for download
+    const filename = "crossTalkerSample.csv";
+    
+    // Create a temporary link and trigger download
+    const a = document.createElement("a");
+    a.href = fileUrl;
+    a.download = filename;  // tells browser to download instead of open
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+});
+    
+
+
 //draw the rectangles
 function drawRectangles() {
     svg.selectAll("rect").remove();

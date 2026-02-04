@@ -1898,6 +1898,15 @@ function downloadPNG() {
 // }
 
 document.getElementById("downloadPDF").addEventListener("click", async () => {
+
+    const proceed = confirm(
+  "Warning: Downloading as a PDF will significantly reduce image quality.\n\n" +
+  "For best quality, download as SVG instead.\n\n" +
+  "Press OK to continue with PDF download, or Cancel to stop."
+);
+
+if (!proceed) return;
+    
   const { jsPDF } = window.jspdf;
   const svg = document.querySelector("svg");
   if (!svg) return console.error("SVG not found");
@@ -1912,8 +1921,8 @@ document.getElementById("downloadPDF").addEventListener("click", async () => {
   canvas.width = width * 3;
   canvas.height = height * 3;
 
-    let scaledWidth = width*3;
-    let scaledHeight = height*3;
+    // let scaledWidth = width*3;
+    // let scaledHeight = height*3;
 
   const ctx = canvas.getContext("2d");
 
@@ -1923,7 +1932,7 @@ document.getElementById("downloadPDF").addEventListener("click", async () => {
 
   const imgData = canvas.toDataURL("image/png");
 
-  const pdf = new jsPDF("landscape", "pt", [scaledWidth, scaledHeight]);
+  const pdf = new jsPDF("landscape", "pt", [width, height]);
   pdf.addImage(imgData, "PNG", 0, 0, width, height);
   pdf.save(`diagram_${getTimestamp()}.pdf`);
 });

@@ -427,7 +427,7 @@ function drawAxes() {
             .constant(1);
 
 
-        legendThicknessScale = d3.scaleSymlog()
+        legendThicknessScale = d3.scaleLog()
             .domain([minFluxAbs, maxFluxAbs])
             .range([minThickness, maxThickness])
             .constant(1);

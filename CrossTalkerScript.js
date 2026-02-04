@@ -1909,8 +1909,8 @@ document.getElementById("downloadPDF").addEventListener("click", async () => {
   // const width = svg.viewBox.baseVal.width || svg.clientWidth || 800;
   // const height = svg.viewBox.baseVal.height || svg.clientHeight || 600;
 
-  canvas.width = width;
-  canvas.height = height;
+  canvas.width = width * 3;
+  canvas.height = height * 3;
 
   const ctx = canvas.getContext("2d");
 

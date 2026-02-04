@@ -1906,8 +1906,8 @@ document.getElementById("downloadPDF").addEventListener("click", async () => {
   const svgString = serializer.serializeToString(svg);
 
   const canvas = document.createElement("canvas");
-  const width = svg.viewBox.baseVal.width || svg.clientWidth || 800;
-  const height = svg.viewBox.baseVal.height || svg.clientHeight || 600;
+  // const width = svg.viewBox.baseVal.width || svg.clientWidth || 800;
+  // const height = svg.viewBox.baseVal.height || svg.clientHeight || 600;
 
   canvas.width = width;
   canvas.height = height;

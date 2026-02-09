@@ -100,7 +100,11 @@ function drawRectangles() {
     //     .attr("height", centerSize)
     //     .attr("fill", appearance.leftRectColor);
 
+    svg.selectAll(".organelle-image").remove();
+
+
     svg.append("image")
+        .attr("class", "organelle-image")
     .attr("x", offsetX)
     .attr("y", offsetY)
     .attr("width", margin)
@@ -123,6 +127,7 @@ function drawRectangles() {
     //     .attr("fill", appearance.rightRectColor);
 
 svg.append("image")
+    .attr("class", "organelle-image")
     .attr("x", offsetX + margin + centerSize)
     .attr("y", offsetY)
     .attr("width", margin)

@@ -984,23 +984,47 @@ console.log("Before:", metabolites.map(r => r[4]));
 
 
             
-            if (!minValues[compound]) {
-        minValues[compound] = {row};
-    }
+    //         if (!minValues[compound]) {
+    //     minValues[compound] = {row};
+    // }
             
 
-    for (let col = FIRST_CONC_COL; col < csvHeaders.length; col += COL_STEP) {
-        const val = parseFloat(row[col]);
-        const minVal = minValues[compound][col];
+    // for (let col = FIRST_CONC_COL; col < csvHeaders.length; col += COL_STEP) {
+    //     const val = parseFloat(row[col]);
+    //     const minVal = minValues[compound][col];
 
-        if (isMissing(val)) {
-            row[col] = 0.5 * minValues[compound];
-            console.log("there was a missing value for" + compound + " " + col);
-        }
+    //     if (isMissing(val)) {
+    //         row[col] = 0.5 * minValues[compound];
+    //         console.log("there was a missing value for" + compound + " " + col);
+    //     }
+    // }
+
+                        let minValueRow = Infinity;
+
+for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
+    const raw = row[missCol];
+    const val = Number(raw);
+
+    // skip missing or non-numeric values
+    if (raw === "" || raw === null || Number.isNaN(val)) {
+        continue;
     }
 
+    if (val < minValueRow) {
+        minValueRow = val;
+    }
+}
 
-console.log("After:", metabolites.map(r => r[4]));
+            for (let missCol = FIRST_CONC_COL; missCol < row.length; missCol += COL_STEP) {
+    if (row[missCol] === "" || row[missCol] === null) {
+        row[missCol] = 0.5 * minValueRow;
+
+                            console.log("metabolite:", compound, "replaced with:",  row[missCol], "for species:", type);
+    }
+}
+
+
+// console.log("After:", metabolites.map(r => r[4]));
 
             
             

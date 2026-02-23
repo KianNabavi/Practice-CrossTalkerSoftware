@@ -461,6 +461,10 @@ fluxData.forEach(d => {
             // const halfTick = tickSize / 2;
             // console.log("halftick:", tickSize);
 
+     const arrowColour = d.flux >= 0 
+                    ? appearance.arrowColorOut 
+                    : appearance.arrowColorIn;
+
             svg.append("defs").append("marker")
                 .attr("id", `arrow-${d.metabolite}`) // unique per metabolite
                 .attr("viewBox", "0 -5 10 10")
@@ -472,7 +476,7 @@ fluxData.forEach(d => {
                 .attr("markerUnits", "userSpaceOnUse")
                 .append("path")
                 .attr("d", "M0,-5 L10,0 L0,5 L5,0 L0,-5")
-                .attr("fill", "black");
+                .attr("fill", arrowColour);
 
 
         });

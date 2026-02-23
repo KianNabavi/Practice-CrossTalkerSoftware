@@ -1688,51 +1688,59 @@ document.getElementById("wellNamesCheck").addEventListener("change", e => {
 
 
 
+// document.getElementById("resetBtn").addEventListener("click", () => {
+//     if (confirm("Are you sure you want to reset everything? This will clear your current visualization and data.")) {
+
+//         svg.selectAll("*").remove();
+
+//         // reset globals
+//         csvFile = null;
+//         csvHeaders = [];
+//         metabolites = [];
+//         selectedMetabolites = [];
+//         fluxData = [];
+//         groups = {};
+//         selectedTimeInterval = null;
+
+//         // reset inputs
+//         document.getElementById("fileInput").value = "";
+//         if (ts) { ts.destroy(); ts = null; }
+//         document.getElementById("compoundSelect").innerHTML = "";
+//         document.getElementById("timeDropdown").innerHTML = "<option disabled selected>Select time frame...</option>";
+
+//         // reset sliders/checkbox/colors
+//         margin = 200; centerSize = 500; width = 1000; height = 1000; paddingPercentage = 50; showWellNames = false;
+//         ['marginSlider', 'centerSlider', 'widthSlider', 'heightSlider', 'paddingSlider'].forEach(id => document.getElementById(id).value = eval(id.replace('Slider', '')));
+//         document.getElementById("wellNamesCheck").checked = false;
+
+//         ['leftRectColorPicker', 'midRectColorPicker', 'rightRectColorPicker', 'tickFillColorPicker', 'arrowColorPickerIn', 'arrowColorPickerOut'].forEach(id => document.getElementById(id).value = appearance[id.replace('Picker', '')]);
+//         ['leftRectColorText', 'midRectColorText', 'rightRectColorText', 'tickFillColorText', 'arrowColorTextIn', 'arrowColorTextOut'].forEach(id => document.getElementById(id).value = appearance[id.replace(/Text/, '')]);
+
+//         // disable all controls except reset + file input
+//         document.getElementById("processBtn").disabled = true;
+//         document.getElementById("visualizeBtn").disabled = true;
+//         document.getElementById("fluxBtn").disabled = true;
+//         ['compoundSelect', 'leftSpeciesSelect', 'rightSpeciesSelect', 'bottomSpeciesSelect', 'timeDropdown',
+//             'marginSlider', 'centerSlider', 'widthSlider', 'heightSlider', 'paddingSlider',
+//             'wellNamesCheck',
+//             'leftRectColorPicker', 'midRectColorPicker', 'rightRectColorPicker', 'tickFillColorPicker', 'arrowColorPickerIn', 'arrowColorPickerOut',
+//             'leftRectColorText', 'midRectColorText', 'rightRectColorText', 'tickFillColorText', 'arrowColorTextIn', 'arrowColorTextOut']
+//             .forEach(id => document.getElementById(id).disabled = true);
+
+//         alert("Reset complete! You can now upload a new file.");
+//     }
+// });
+
+
 document.getElementById("resetBtn").addEventListener("click", () => {
-    if (confirm("Are you sure you want to reset everything? This will clear your current visualization and data.")) {
+    const confirmed = confirm(
+        "Are you sure you want to reset everything? This will clear your current visualization and data."
+    );
 
-        svg.selectAll("*").remove();
-
-        // reset globals
-        csvFile = null;
-        csvHeaders = [];
-        metabolites = [];
-        selectedMetabolites = [];
-        fluxData = [];
-        groups = {};
-        selectedTimeInterval = null;
-
-        // reset inputs
-        document.getElementById("fileInput").value = "";
-        if (ts) { ts.destroy(); ts = null; }
-        document.getElementById("compoundSelect").innerHTML = "";
-        document.getElementById("timeDropdown").innerHTML = "<option disabled selected>Select time frame...</option>";
-
-        // reset sliders/checkbox/colors
-        margin = 200; centerSize = 500; width = 1000; height = 1000; paddingPercentage = 50; showWellNames = false;
-        ['marginSlider', 'centerSlider', 'widthSlider', 'heightSlider', 'paddingSlider'].forEach(id => document.getElementById(id).value = eval(id.replace('Slider', '')));
-        document.getElementById("wellNamesCheck").checked = false;
-
-        ['leftRectColorPicker', 'midRectColorPicker', 'rightRectColorPicker', 'tickFillColorPicker', 'arrowColorPickerIn', 'arrowColorPickerOut'].forEach(id => document.getElementById(id).value = appearance[id.replace('Picker', '')]);
-        ['leftRectColorText', 'midRectColorText', 'rightRectColorText', 'tickFillColorText', 'arrowColorTextIn', 'arrowColorTextOut'].forEach(id => document.getElementById(id).value = appearance[id.replace(/Text/, '')]);
-
-        // disable all controls except reset + file input
-        document.getElementById("processBtn").disabled = true;
-        document.getElementById("visualizeBtn").disabled = true;
-        document.getElementById("fluxBtn").disabled = true;
-        ['compoundSelect', 'leftSpeciesSelect', 'rightSpeciesSelect', 'bottomSpeciesSelect', 'timeDropdown',
-            'marginSlider', 'centerSlider', 'widthSlider', 'heightSlider', 'paddingSlider',
-            'wellNamesCheck',
-            'leftRectColorPicker', 'midRectColorPicker', 'rightRectColorPicker', 'tickFillColorPicker', 'arrowColorPickerIn', 'arrowColorPickerOut',
-            'leftRectColorText', 'midRectColorText', 'rightRectColorText', 'tickFillColorText', 'arrowColorTextIn', 'arrowColorTextOut']
-            .forEach(id => document.getElementById(id).disabled = true);
-
-        alert("Reset complete! You can now upload a new file.");
+    if (confirmed) {
+        location.reload(); // Refreshes the entire page
     }
 });
-
-
-
 
 
 

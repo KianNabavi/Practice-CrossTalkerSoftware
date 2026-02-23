@@ -574,7 +574,7 @@ fluxData.forEach(d => {
 
                     console.log("drawing line", startX, startY, "->", diagX, diagY);
 
-                    const arrowColor = d.flux >= 0 
+                    const arrowColour = d.flux >= 0 
                     ? appearance.arrowColorOut 
                     : appearance.arrowColorIn;
                     

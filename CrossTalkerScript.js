@@ -465,7 +465,8 @@ fluxData.forEach(d => {
                     ? appearance.arrowColorOut 
                     : appearance.arrowColorIn;
 
-            svg.append("defs").append("marker")
+            svg.append("defs")
+                .append("marker")
                 .attr("id", `arrow-${d.metabolite}`) // unique per metabolite
                 .attr("viewBox", "0 -5 10 10")
                 .attr("refX", 6)
@@ -473,10 +474,11 @@ fluxData.forEach(d => {
                 .attr("markerWidth", 18)
                 .attr("markerHeight", 18)
                 .attr("orient", "auto")
+                .attr("marker-end", `url(#arrow-${d.metabolite})`)
                 .attr("markerUnits", "userSpaceOnUse")
                 .append("path")
                 .attr("d", "M0,-5 L10,0 L0,5 L5,0 L0,-5")
-                .attr("fill", arrowColour);
+                .attr("fill", "blue");
 
 
         });

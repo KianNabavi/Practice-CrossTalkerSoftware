@@ -574,15 +574,23 @@ fluxData.forEach(d => {
 
                     console.log("drawing line", startX, startY, "->", diagX, diagY);
 
+                    const arrowColor = d.flux >= 0 
+                    ? appearance.arrowColorOut 
+                    : appearance.arrowColorIn;
+                    
                     svg.append("line")
                         .attr("class", "arrow")
                         .attr("x1", x1)
                         .attr("y1", y1)
                         .attr("x2", x2)
                         .attr("y2", y2)
-                        .attr("stroke", d.flux >= 0 ? appearance.arrowColorOut : appearance.arrowColorIn)
+                        .attr("stroke", arrowColour)
+                        .attr("color", arrowColour)
+                        //.attr("stroke", d.flux >= 0 ? appearance.arrowColorOut : appearance.arrowColorIn)
                         .attr("stroke-width", d.thicknessLegend)
                         .attr("marker-end", "url(#arrow)");
+
+
                 });
 
 

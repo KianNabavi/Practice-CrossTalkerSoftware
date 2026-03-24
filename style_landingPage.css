@@ -12,6 +12,13 @@ body {
   padding: 0;
 }
 
+.btn-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+}
+
 .glass-btn {
   /* display: inline-flex; */
   /* align-items: center; */

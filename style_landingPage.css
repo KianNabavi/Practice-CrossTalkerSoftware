@@ -53,6 +53,12 @@ body {
     position: relative;
 }
 
+.glass-btn img {
+  width: 25vw;
+  height: auto; /* keeps the aspect ratio */
+  object-fit: contain;
+}
+
 /* --- Animation: float + rotate + glow --- */
 @keyframes mitoFloat {
     0% {

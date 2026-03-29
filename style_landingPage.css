@@ -122,11 +122,13 @@ body {
 
 
 .page-header {
-  background-color: purple; /* or whatever you're using */
   color: white;
 }
 
 .page-header h1,
 .page-header h2 {
-  color: white;
+    background-color: rgba(255, 255, 255, 0.7);
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 6px;
 }

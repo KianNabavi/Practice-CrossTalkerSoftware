@@ -127,7 +127,7 @@ body {
 
 .page-header h1,
 .page-header h2 {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: #3b0066;
   display: inline-block;
   padding: 5px 10px;
   border-radius: 6px;

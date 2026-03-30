@@ -132,3 +132,41 @@ body {
   padding: 5px 10px;
   border-radius: 6px;
 }
+
+
+
+/* ===== PAGE HEADER LAYOUT ===== */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 40px;
+  background: linear-gradient(135deg, #4b0082, #6a0dad);
+  color: white;
+}
+
+/* ===== LEFT + RIGHT BRANDING ===== */
+.uwo-branding,
+.brg-branding {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 150px;        /* keeps symmetry */
+  gap: 10px;
+}
+
+/* ===== LOGO IMAGES ===== */
+.uwo-branding img,
+.brg-branding img {
+  height: 50px;
+  object-fit: contain;
+}
+
+/* ===== CENTER TEXT ===== */
+.header-text {
+  flex: 1;
+  text-align: center;
+}
+

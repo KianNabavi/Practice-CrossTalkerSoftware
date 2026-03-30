@@ -134,8 +134,7 @@ body {
 }
 
 
-
-/* ===== PAGE HEADER LAYOUT ===== */
+/* ===== HEADER LAYOUT ===== */
 .page-header {
   display: flex;
   align-items: center;
@@ -146,18 +145,23 @@ body {
   color: white;
 }
 
-/* ===== LEFT + RIGHT BRANDING ===== */
-.uwo-branding,
-.brg-branding {
+/* ===== LEFT (UWO) ===== */
+.uwo-branding {
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 150px;        /* keeps symmetry */
-  gap: 10px;
+  flex-direction: column;   /* STACKED (this is what you wanted) */
+  align-items: flex-start;
+  gap: 8px;
+  width: 180px;
 }
 
-/* ===== LOGO IMAGES ===== */
+/* ===== RIGHT (BRG) ===== */
+.brg-branding {
+  display: flex;
+  justify-content: flex-end;
+  width: 180px;
+}
+
+/* ===== LOGOS ===== */
 .uwo-branding img,
 .brg-branding img {
   height: 50px;
@@ -170,3 +174,23 @@ body {
   text-align: center;
 }
 
+/* ===== TEXT STYLING ===== */
+.header-text h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.header-text h2 {
+  margin: 5px 0 0 0;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+/* ===== TEXT BACKGROUND ===== */
+.header-text h1,
+.header-text h2 {
+  background-color: #3b0066;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 6px;
+}

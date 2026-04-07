@@ -1,64 +1,56 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <title>MetaboMAP</title>
-</head>
-
-<body>
-
-
-
-    <!-- Put this RIGHT at the top of <body>, before everything else -->
-<div id="loader">
-  <div class="spinner"></div>
-</div>
-
-<style>
-  #loader {
-    position: fixed;
-    inset: 0;               /* covers the whole screen */
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    transition: opacity 0.4s ease;
-  }
-
-  #loader.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid #eee;
-    border-top-color: #333;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-</style>
-
-<script>
-  // Hide loader once everything (images, fonts, etc.) is loaded
-  window.addEventListener('load', () => {
-    document.getElementById('loader').classList.add('hidden');
-  });
-</script>
-
-    
-    
-    <header class="page-header">
+    <head>
+        <meta charset="utf-8">
+        <title>MetaboMAP</title>
+    </head>
+    <body>
+        <div id="loader">
+          <div class="spinner"></div>
+        </div>
 
 
+        <!-- style and code for the loading screen that appears before the landing page has fully laoded -->
+        <style>
+          #loader {
+            position: fixed;
+            inset: 0;            
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease;
+          }
         
+          #loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+          }
+        
+          .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #eee;
+            border-top-color: #333;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+          }
+        
+          @keyframes spin {
+            to { transform: rotate(360deg); }
+          }
+        </style>
+        <script>
+          window.addEventListener('load', () => {
+            document.getElementById('loader').classList.add('hidden');
+          });
+        </script>
+
+
+
+        <!-- header and branding information for UWO, Schulich, and the Bishop Research Group -->
+        <header class="page-header">
 
         <div class="uwo-branding">
             <img src="pictures/Horizontal_Rev.png">
@@ -79,38 +71,42 @@
 
 
 
-<!-- <div class="mito-row">
-  <svg viewBox="0 0 64 64" class="mito-icon mito-animated" aria-hidden="true">
-    <ellipse cx="32" cy="32" rx="26" ry="14"
-             fill="#ff9f43" stroke="#d35400" stroke-width="4" />
-    <path d="M16 32c6-8 12 8 18 0s12 8 18 0"
-          fill="none" stroke="#ffeaa7"
-          stroke-width="4" stroke-linecap="round" />
-  </svg>
 
-  <svg viewBox="0 0 64 64" class="mito-icon mito-animated" aria-hidden="true">
-    <ellipse cx="32" cy="32" rx="26" ry="14"
-             fill="#ff9f43" stroke="#d35400" stroke-width="4" />
-    <path d="M16 32c6-8 12 8 18 0s12 8 18 0"
-          fill="none" stroke="#ffeaa7"
-          stroke-width="4" stroke-linecap="round" />
-  </svg>
-</div> -->
-        
-    </header>
+            <!-- Code for floating mitochondria icons. Cosmetic and hidden by default.
+            
+            <div class="mito-row">
+              <svg viewBox="0 0 64 64" class="mito-icon mito-animated" aria-hidden="true">
+                <ellipse cx="32" cy="32" rx="26" ry="14"
+                         fill="#ff9f43" stroke="#d35400" stroke-width="4" />
+                <path d="M16 32c6-8 12 8 18 0s12 8 18 0"
+                      fill="none" stroke="#ffeaa7"
+                      stroke-width="4" stroke-linecap="round" />
+              </svg>
+            
+              <svg viewBox="0 0 64 64" class="mito-icon mito-animated" aria-hidden="true">
+                <ellipse cx="32" cy="32" rx="26" ry="14"
+                         fill="#ff9f43" stroke="#d35400" stroke-width="4" />
+                <path d="M16 32c6-8 12 8 18 0s12 8 18 0"
+                      fill="none" stroke="#ffeaa7"
+                      stroke-width="4" stroke-linecap="round" />
+              </svg>
+            </div> -->
+        </header>
 
-    <div class="btn-row">
-    <button class="glass-btn" onclick="window.location.href='cross_talker_2Sp.html'">2 Species Cross Talk</button>
-        
-    <button class="glass-btn" onclick="window.location.href='CrossTalker.html'">
-        <img src="pictures/3Species.png">
-        3 Species Cross Talk
-    </button>
+  
+        <div class="btn-row">
+            <button class="glass-btn" onclick="window.location.href='cross_talker_2Sp.html'">2 Species Cross Talk</button>
+            <button class="glass-btn" onclick="window.location.href='CrossTalker.html'">
+                <img src="pictures/3Species.png">
+                3 Species Cross Talk
+            </button>
 
-    <button class="glass-btn" onclick="window.location.href='KEGG_opener.html'">
-        <img src="pictures/map.png">
-        KEGG visualization Tool</button>
-    </div>
+   
+            <button class="glass-btn" onclick="window.location.href='KEGG_opener.html'">
+               <img src="pictures/map.png">
+                KEGG visualization Tool
+            </button>    
+        </div>
 
 
 
@@ -134,6 +130,11 @@
             After measruing metabolites within the differenet species as well as the community wells at different time points, this metabolic data is to be uploaded to 
             a preset CSV format that the software can read and understand. <a href="" target="_blank">(See example)</a></p>
 
+            <h3>KEGG Network Visualization Tool</h3>
+            <p>The Kyoto Encycoedia of Genomes and Genes, KEGG, is a tool used for mapping metabolic pathways, genes, genomes, and enzymes. KEGG provides users with access to metabolic networks and pathways.
+            These pathways can be downloaded as KGML or XML files from the KEGG website, and then uploaded into the KEGG Visualization Tool, where each metabolite, enzyme, and reactant becomes a node and reactions
+            become "edges" (arrows and connectoins). These nodes and edges can then be moved and explored individually using the visualization tool. </p>
+
 
     <section class="features">
   <div class="card">
@@ -150,15 +151,15 @@
     <h3>Visualization</h3>
     <p>Generate clear and interactive visual outputs.</p>
   </div>
-</section>
 
+    </section>
     
+            <h3>Created by: Kian Nabavi Larijani</h3>
+            <h3>Bishop Research Group</h3>
+            <h2>Schulich School of Medicine and Dentistry</h2>
 
-    
 
-    <h3>Created by: Kian Nabavi Larijani</h3>
-
-</body>
+        </body>
 
 <link rel="stylesheet" href="style_landingPage.css">
 </html>

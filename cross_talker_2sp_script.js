@@ -93,43 +93,28 @@ function drawRectangles() {
     const offsetX = (width - totalWidth) / 2;
     const offsetY = 30;
 
-    // svg.append("rect")
-    //     .attr("x", offsetX)
-    //     .attr("y", offsetY)
-    //     .attr("width", margin)
-    //     .attr("height", centerSize)
-    //     .attr("fill", appearance.leftRectColor);
+
+    const imgWidth = 252;
+    const imgHeight = 504;
+    
 
     svg.selectAll(".organelle-image").remove();
     
     svg.append("image")
         .attr("class", "organelle-image")
-    .attr("x", offsetX)
-    .attr("y", offsetY)
-    .attr("width", margin)
+    .attr("x", offsetX - imgWidth/2)
+    .attr("y", offsetY - imgHeight/2)
+    .attr("width", imgWidth)
     .attr("height", centerSize)
     .attr("href", "bacteria_picture.png")
     .attr("preserveAspectRatio", "xMidYMid slice");
 
-    // svg.append("rect")
-    //     .attr("x", offsetX + margin)
-    //     .attr("y", offsetY + centerSize)
-    //     .attr("width", centerSize)
-    //     .attr("height", margin)
-    //     .attr("fill", appearance.midRectColor);
-
-    // svg.append("rect")
-    //     .attr("x", offsetX + margin + centerSize)
-    //     .attr("y", offsetY)
-    //     .attr("width", margin)
-    //     .attr("height", centerSize)
-    //     .attr("fill", appearance.rightRectColor);
 
 svg.append("image")
     .attr("class", "organelle-image")
-    .attr("x", offsetX + margin + centerSize)
-    .attr("y", offsetY)
-    .attr("width", margin)
+    .attr("x", offsetX + centerSize - imgWidth/2)
+    .attr("y", offsetY - imgWidth/2)
+    .attr("width", imgWidth)
     .attr("height", centerSize)
     .attr("href", "bacteria_picture.png")
     .attr("preserveAspectRatio", "xMidYMid slice");

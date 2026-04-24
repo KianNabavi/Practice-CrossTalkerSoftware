@@ -108,7 +108,7 @@ function drawRectangles() {
     .attr("y", offsetY)
     .attr("width", margin)
     .attr("height", centerSize)
-    .attr("href", "mito.png")
+    .attr("href", "bacteriaPicture.png")
     .attr("preserveAspectRatio", "xMidYMid slice");
 
     // svg.append("rect")
@@ -131,7 +131,7 @@ svg.append("image")
     .attr("y", offsetY)
     .attr("width", margin)
     .attr("height", centerSize)
-    .attr("href", "mito.png")
+    .attr("href", "bacteriaPicture.png")
     .attr("preserveAspectRatio", "xMidYMid slice");
 
     svg.append("rect")

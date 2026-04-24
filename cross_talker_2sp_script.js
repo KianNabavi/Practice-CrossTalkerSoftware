@@ -110,14 +110,14 @@ function drawRectangles() {
     //.attr("preserveAspectRatio", "xMidYMid slice");
 
 
-svg.append("image")
-    .attr("class", "organelle-image")
-    .attr("x", offsetX + centerSize + imgWidth/2)
-    .attr("y", offsetY)
-    .attr("width", imgWidth)
-    .attr("height", centerSize)
-    .attr("href", "bacteria_picture.png")
-    //.attr("preserveAspectRatio", "xMidYMid slice");
+// svg.append("image")
+//     .attr("class", "organelle-image")
+//     .attr("x", offsetX + centerSize + imgWidth/2)
+//     .attr("y", offsetY)
+//     .attr("width", imgWidth)
+//     .attr("height", centerSize)
+//     .attr("href", "bacteria_picture.png")
+//     //.attr("preserveAspectRatio", "xMidYMid slice");
 
     svg.append("rect")
         .attr("x", offsetX + margin)

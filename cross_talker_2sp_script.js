@@ -102,8 +102,8 @@ function drawRectangles() {
     
     svg.append("image")
         .attr("class", "organelle-image")
-    .attr("x", offsetX - imgWidth/2)
-    .attr("y", offsetY - imgHeight/2)
+    .attr("x", offsetX + imgWidth/2)
+    .attr("y", offsetY)
     .attr("width", imgWidth)
     .attr("height", centerSize)
     .attr("href", "bacteria_picture.png")
@@ -112,8 +112,8 @@ function drawRectangles() {
 
 svg.append("image")
     .attr("class", "organelle-image")
-    .attr("x", offsetX + centerSize - imgWidth/2)
-    .attr("y", offsetY - imgWidth/2)
+    .attr("x", offsetX + centerSize + imgWidth/2)
+    .attr("y", offsetY)
     .attr("width", imgWidth)
     .attr("height", centerSize)
     .attr("href", "bacteria_picture.png")

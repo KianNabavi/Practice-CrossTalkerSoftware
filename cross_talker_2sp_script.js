@@ -102,7 +102,7 @@ function drawRectangles() {
     
     svg.append("image")
         .attr("class", "organelle-image")
-    .attr("x", offsetX + imgWidth/4)
+    .attr("x", offsetX + (centerSize-(imgWidth/2))
     .attr("y", offsetY)
     .attr("width", imgWidth)
     .attr("height", centerSize)
